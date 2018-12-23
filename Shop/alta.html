@@ -1,0 +1,157 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-125578563-1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-125578563-1');
+	</script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="author" content="www.summatron.com">
+
+	<title>SummaTron. TRX Shopping</title>	
+	
+	<meta name="description" content="Primer Shopping web basado en TRON"/>
+	<meta name="title" content="SummaTron. TRX Shopping"/>
+	<meta name="keywords" content="criptodivisa, crytocurrency, criptomoneda, tron, bitcoin, binance, tronwallet, wallet, "/>
+
+
+ 	<link rel="icon" type="image/png" href="/icon.png" />
+    <link href="/tron/css/blog-post.css" rel="stylesheet">
+	<link href="/tron/css/font-awesome.min.css" rel="stylesheet">
+    <link href='/tron/css/bootstrap.min.css' rel='stylesheet' />
+	<link href='/tron/css/summadata.css' rel='stylesheet' />
+	<link href='/tron/css/jquery-ui.min.css' rel='stylesheet' />
+
+	<script src='/tron/js/scripts.js'></script>
+    <script src='/tron/js/jquery.min.js'></script>
+    <script src='/tron/js/bootstrap.min.js'></script>
+	<script src="/tron/js/jquery-ui.min.js"></script>	
+	<script src="/tron/js/funcionestron.js" ></script>
+	<script src="/api/js/qrcode.min.js" ></script>
+	<script src="/api/js/apisummatron.js" ></script> 
+
+</head>
+
+<body>
+	
+	<!-- Navigation -->
+	<div id="cabecera"></div>
+ 
+    <!-- Page Content -->
+    <div class="container">
+
+		<div class="row">
+
+        <!-- Post Content Column -->
+			<div class="col-lg-8">
+				<div id="PanelAlta">
+					<br>
+					<label class="tronlabel" for="libro"><center><h2>Insert a Product</h2></center></label>	
+					<form action="jspjs/SubirFicheros.jsp" enctype="MULTIPART/FORM-DATA" method="post">
+						<fieldset class="form-group">
+							<label class="tronlabel"  for="Tipo">Tipo</label>
+							<select class="form-control" id="Tipoo" name="Tipo" value="">
+							  <option value="Libro">eBook</option>
+							  <option value="Musica">Music</option>
+							  <option value="Imagen">Image</option>
+							  <option value="Documento">Document</option>
+							  <option value="Otro">Other</option>
+							</select>
+						</fieldset>
+						<fieldset class="form-group">
+							<label class="tronlabel"  for="Precio">Price</label>
+							<input class="form-control" id="Precio" name="Precio" maxlength="8" value="" required>
+						 </fieldset>
+						<fieldset class="form-group">
+							<label class="tronlabel"  for="Cuenta">Acount TRX</label>
+							<input class="form-control" id="Cuenta" name="Cuenta" maxlength="34" value="" required>
+						 </fieldset>
+						  <fieldset class="form-group">
+							<label class="tronlabel"  for="Titulo">Title</label>
+							<input class="form-control"  type="Text" id="Titulo" name="Titulo" maxlength="45" value="" required></input>
+						  </fieldset>
+						  <fieldset class="form-group">
+							<label class="tronlabel"  for="Descripcion">Description</label>
+							<textarea class="form-control"  type="Text" id="Descripcion" name="Descripcion" maxlength="1024" rows="3" value="" required></textarea>
+						  </fieldset>
+						<fieldset class="form-group">
+							<label class="tronlabel"  for="Imagen">External URL of the Image or select file to be downloaded from Shop</label>
+							<input class="form-control" id="URLImagen" name="URLImagen" maxlength="255" value="">
+							<input type="file" name="Imagen" />
+						 </fieldset>
+						 <fieldset class="form-group">
+							<label class="tronlabel"  for="Imagen">External URL of the Product or select file to be downloaded from Shop</label>
+							<input class="form-control" id="URLProducto" name="URLProducto" maxlength="255" value="">
+							<input type="file" name="Producto" />
+						 </fieldset>
+						 <button type="submit" class="btn btn-primary btn-lg">Send</button>
+					</form>
+				</div>
+			</div>
+			<div class="col-lg-8" id="Resultado" style="display:none">
+				<br><br><br>
+				<h5 class="card-header"><center>INSERT PERFORMED CORRECTLY</h5>
+			</div>
+			<div class="col-md-4">
+				<div class="card my-4">
+				<h5 class = "card-header"> How to register a product? </h5>
+				<div class = "card-body">
+				<p style = "text-align: justify">
+				The registration process does not need registration, just complete the fields that are requested in the form:
+				<br> <br>
+				- Type of product<br>
+				- Price. <br>
+				- The TRX account where you will receive the collections. <br>
+				- The title to show <br>
+				- A description of 1,024 characters maximum <br>
+				- URL of the image to show or if you upload a file <br>
+				- URL of the product to download or upload a file <br>
+
+				<br> <br>
+				The TRX account will be the key to access in the future
+				<br> <br>
+				We assume that the person who includes the product is the owner of the copyright.
+				</p>
+				</div>
+				</div>
+				<div class = "card my-4">
+				<h5 class = "card-header"> How to modify a product </h5>
+				<div class = "card-body">
+				<p style = "text-align: justify">
+				Since in Shop there is no record, and that we are fervent believers in TRON, for <a href="http://www.summatron.com/shop/modificacion_EN.html" target="_blank"> modify a product </a >
+				You must access and you are only required to pay 1 TRX from the owner account (the one included in the registration of the product).
+				</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+$("#cabecera").load("/shop/cabecera_Shop_EN.html");
+sResultado = getParameter("Resultado");
+if (sResultado == "Correcto")
+{
+	$("#PanelAlta").css("display","none");
+	$("#Resultado").css("display","block");
+}
+
+ function getParameter(name){
+   url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return '';
+    if (!results[2]) return '';
+    retorno = decodeURIComponent(results[2].replace(/\+/g, " "));
+	retorno=retorno.split("'").join("");
+	return retorno;
+}
+</script>
+</html>

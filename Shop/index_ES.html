@@ -1,0 +1,253 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-125578563-1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-125578563-1');
+	</script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="www.summatron.com">
+	<title>SummaTron Shop. TRX e-commerce</title>	
+	<meta name="description" content="Agregador de cuentas de TRON"/>
+	<meta name="title" content="SummaTron. TRX Accounts Viewer"/>
+	<meta name="keywords" content="criptodivisa, crytocurrency, criptomoneda, tron, bitcoin, binance, tronwallet, wallet, "/>
+
+ 	<link rel="icon" type="image/png" href="/icon.png" />
+    <link href="/tron/css/blog-post.css" rel="stylesheet">
+	<link href="/tron/css/font-awesome.min.css" rel="stylesheet">
+    <link href='/tron/css/bootstrap.min.css' rel='stylesheet' />
+	<link href='/tron/css/summadata.css' rel='stylesheet' />
+	<link href='/tron/css/jquery-ui.min.css' rel='stylesheet' />
+
+	<script src='/tron/js/scripts.js'></script>
+    <script src='/tron/js/jquery.min.js'></script>
+    <script src='/tron/js/bootstrap.min.js'></script>
+	<script src="/tron/js/jquery-ui.min.js"></script>	
+	<script src="/tron/js/funcionestron.js" ></script>
+	<script src="/api/js/qrcode.min.js" ></script>
+	<script src="/api/js/apisummatron.js" ></script> 
+
+  </head>
+<body>
+
+      <!-- Navigation -->
+	<div id="cabecera"></div>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-8">
+		<div id="PanelLista">
+		<br>
+		<label class="summalabel" for="libro"><center><h2>Elija su Producto</h2></center></label>	
+		<div class="input-group">
+			<input type="text" class="form-control" id="Busqueda"  placeholder="Buscar...">
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="button" onClick="Mostrar()"><i class="fa fa-search"></i></button>
+			</span>
+		</div><!-- /input-group -->
+		<br>
+		<table>
+		<tr>
+		<td>
+			<table>
+			<tbody id="zona">	
+			</tbody>
+			</table>
+		</td>
+		</tr>
+		</table>
+		</div>
+		<div id="PanelPago" style="display:none">
+		    <br>	
+			<table>
+			<tr>
+			<td valign="top">
+				<center>
+					<h2><label id="Cabecera">Ha seleccionado </label></h2>
+					<div id="Pago">
+						<label id="DescripcionPago"></label>
+						<table><tr><td slign="center" style="padding-right:20px">
+						<center><label>Para PAGAR con TronWalletMe</label></center>
+						<div id="qrcodePagar" style="border-style:solid;border-width:5px;border-color:#242489;width:200px; height:200px; margin-top:20px;margin-left:20px;padding:5px"></div>
+						</td><td align="center">
+						<label>Para ENVIAR con cualquier Wallet</label><br>
+						<label id="DatosEnviar" style="font-size:12px"></label>
+						<div id="qrcodeEnviar" style="border-style:solid;border-width:5px;border-color:#242489;width:200px; height:200px; margin-top:20px;margin-left:20px;padding:5px"></div>
+						<label id="Cuenta" style="font-size:14px;"></label>
+						</td></tr></table>
+					</div>
+					<label id="resultado"><h4></h4></label>
+					<label id="descarga"><h4></h4></label>		
+				 </center>
+			</td>
+			</tr>
+			</table>
+		</div>
+	</div>
+	      <div class="col-md-4">
+
+          <!-- What is TRON -->
+          <div class="card my-4">
+            <h5 class="card-header">¿Qué es Shop?</h5>
+            <div class="card-body">
+			<p style="text-align:justify">
+			<b>Shop</b> es una página de venta se productos dígitales cuyo pago se realiza exclusivamnente con TRX.<br>
+			Los compradores sólo tendrán que usar su TronWallet para Pagar o Enviar el importe del producto.
+			<br>
+			Una vez verificado el pago (unos segundos), Shop permitirá la descarga del producto.<br>
+			El vendedor recibirá automáticamente los TRX en su cuenta.
+			Todo sin intermediarios, sin proceso de registro, cuentas de correo ni cookies "que mejoran la experiencia de usuario".<br>
+			<br>
+			Así de <b>simple</b>, así de <b>rápido</b>.
+			<br><br>
+			Puedes probarlo pulsando sobre el primer libro de la lista, su precio es 10 TRX (0,02$).
+			</p> </div>
+          </div>
+		  <div class="card my-4">
+            <h5 class="card-header">¿Qué Productos?</h5>
+            <div class="card-body"><p style="text-align:justify">
+			Todo producto digital, es decir descargable desde la web, puede ser publicado en Shop.<br>
+			Libros electrónicos, música, fotografias, comics, logos, dibujos (retratos), documentos, apuntes, trabajos fin de Master, etc.<br>
+			Si eres un creador y buscas una forma alternativa de ofrecer tus creaciones a los usuarios, <b>Shop</b> es tu plataforma.<br>
+			Hasta ahora solo había 2 alternativas: regalar el trabajo indexado por Google o dejándolo el valor de la venta en manos de intermediarios y de Visa.
+			</p> </div>
+          </div>
+         <div class="card my-4">
+            <h5 class="card-header">Alta de Productos</h5>
+            <div class="card-body"><p style="text-align:justify">
+			En <a href="http://www.summatron.com/shop/alta.html" target="_blank">alta de producto</a> podrás dar de alta nuevos productos digitales. No será necesario registro, la cuenta TRX es la clave de entrada.<br>
+			La imagen y el producto pueden enlazarse en una página externa (o subirlo a Shop), en Summatron/Shop solo estará la descripción, el precio y la cuenta TRX de cobro.<br>
+			De este modo puedes comprobar que las descargas y los pagos coinciden,<br>
+			¡¡Esto si que es descentralización y libertad en la Internet 4.0 gracias a TRON!!.
+			</p> </div>
+          </div>
+		  <div class="card my-4">
+            <h5 class="card-header"><strong>¿Cómo gana dinero SummaTron?</strong></h5>
+            <div class="card-body"><p style="text-align:justify">
+			TRON es la clave, para actualizar la información de los productos no existe registro, así que para asegurar quién es el propietario deberá pagar 1 TRX para obtener acceso, verificando que el dueño del producto es el dueño de la cuenta TRX.
+			<br><br>
+			Además siempre se aceptan donaciones para mantener y hacer crecer este proyecto.
+			</p> </div>
+          </div>
+        </div>
+	</div>
+</div>
+<input type="hidden" id="Link" value= "">
+<input type="hidden" id="Descripcion" value= "">
+<input type="hidden" id="Importe" value= "">
+<input type="hidden" id="Time" value= "0">
+</body>
+<script type="text/javascript">
+$("#cabecera").load("/shop/cabecera_Shop_ES.html");
+var myVar;
+var qrcodePagar = new QRCode(document.getElementById("qrcodePagar"), {
+	width : 180,
+	height : 180
+});
+var qrcodeEnviar = new QRCode(document.getElementById("qrcodeEnviar"), {
+	width : 180,
+	height : 180
+});
+$("#Busqueda").keyup(function(event) {
+    if (event.keyCode === 13) {
+       Mostrar();
+    }
+});
+Mostrar();
+
+function makeCode (sCuenta,sImporte,sTitulo,sLink) {
+	sTitulo = sTitulo.split("@").join(" ");
+	$("#PanelPago").css("display","block");
+	$("#PanelLista").css("display","none");
+	sR = Math.floor((Math.random() * 10000) + 1);
+    sDes = "Ref.:"+sR;
+    $("#Link").val(sLink);
+	$("#Descripcion").val(sDes);
+	$("#Importe").val(sImporte);
+	$("#DescripcionPago").html("<h3>"+sTitulo + ".</h3><h4>Precio: " + sImporte + " TRX. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+sDes + "</h4>");
+	$("#DatosEnviar").html("(Importe: "+sImporte+" TRX. Descripción: "+sDes+")");
+	$("#Cuenta").html("<b>"+sCuenta+"</b>");
+	sText = sCuenta;
+	qrcodeEnviar.makeCode(sText);
+	sText = '{"amount":"'+sImporte+'","data":"'+sDes+'","token":"TRX","address":"'+sCuenta+'"}';
+	$("#Pagar").css("display","block");
+	qrcodePagar.makeCode(sText);
+	Verificar();
+}
+function Verificar () 
+{
+	sDescripcion=$("#Descripcion").val();
+	sImporte = $("#Importe").val();
+	sLink=$("#Link").val();
+	sLinkPDF = sLink ;
+	$.get( "/shop/jsp/ConectarTronScan.jsp?Cuenta='"+sCuenta+"'&Descripcion='"+sDescripcion+"'&Importe="+sImporte+"'", function(resp) {
+		var obj = JSON.parse(resp);
+		
+		if (obj.From=="Error")		
+		{
+			$("#Pago").css("display","none");
+			$("#resultado").html("<h3>Tiempo de espera superado</h3>");
+			$("#descarga").html("");
+		}
+		else
+		{
+			$("#Pago").css("display","none");
+			nAmount = parseFloat(obj.Amount);
+			nImporte = parseFloat(sImporte);
+			if ((nImporte==nAmount) && (obj.Token=="TRX"))
+			{	
+				$("#DescripcionPago").html("");
+				$("#Cabecera").html("Se ha verificado el envío");
+				$("#resultado").html("<h4>Muchas gracias. Hemos recibido el envío de "+nAmount+ " " + obj.Token + " desde "+ obj.From +"</h4>");
+				$("#descarga").html("<h4> Pulse para descargar su producto <a href='/shop/Libro/"+sLinkPDF+"' target='_blank'><img src='/shop/img/pdf.jpg' width='30px' height='40px')></a></h4>");			
+			}
+			else
+			{
+				$("#resultado").html("<h4>El importe no coincide, pero muchas gracias.<br> Hemos recibido una donación de "+ obj.Amount+ " " + obj.Token+ " desde "+ obj.From +"</h4>");
+				$("#descarga").html("<h4> Pulse para descargar su producto <a href='/shop/Libro/"+sLinkPDF+"' target='_blank'><img src='/shop/img/pdf.jpg' width='30px' height='40px')></a></h4>");			
+			}
+		}
+	});
+}
+
+function Mostrar()
+{	
+	$("#zona").html("");
+	sBusqueda=$("#Busqueda").val();
+	$.get( "/shop/jsp/ListaProductos.jsp?Busqueda='"+sBusqueda+"'", function(resp) {
+		var aLista = resp.split("@");
+		var aLinea = aLista[1].split("#");
+		var aCelda;
+		var sZona="";
+		for (i=1;i<aLinea.length-1;i++)
+			{
+			aCelda= aLinea[i].split(";");
+			sCuenta = aCelda[0];
+			sPrecio = aCelda[1];
+			sTitulo = aCelda[2];
+			sDescripcion = aCelda[3];
+			sImagen = aCelda[4];
+			sProducto = aCelda[5];
+			sClick= "makeCode('"+sCuenta+"','"+sPrecio+"','"+sTitulo.split(" ").join("@")+"','"+sProducto+"');";
+			sZona=sZona+"<tr><td> <img src='/shop/img/"+sImagen+"' width='120px' height= '150px'  onclick="+sClick + " style='cursor:pointer' >" +
+			"<br><br><center><label style='font-size:12px'>Precio: "+sPrecio+" TRX</label></center></td>"+
+			"<td style='padding:10px'><div style='text-align:justify'>"+
+			"<b>"+sTitulo+"</b><br><br>"+sDescripcion+	
+			"</div></td></tr>";
+		}	
+		$("#zona").append(sZona);
+		});
+}
+</script>
+</html>
