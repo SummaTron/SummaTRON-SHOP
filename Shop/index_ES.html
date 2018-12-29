@@ -31,7 +31,7 @@
     <script src='/tron/js/bootstrap.min.js'></script>
 	<script src="/tron/js/jquery-ui.min.js"></script>	
 	<script src="/tron/js/funcionestron.js" ></script>
-	<script src="/api/js/qrcode.min.js" ></script>
+	<script src="/shop/js/qrcode.min.js" ></script>
 	<script src="/api/js/apisummatron.js" ></script> 
 
   </head>
@@ -208,7 +208,7 @@ function Verificar ()
 			if ((nImporte==nAmount) && (obj.Token=="TRX"))
 			{	
 				$("#DescripcionPago").html("");
-				$("#Cabecera").html("Se ha verificado el envío");
+				$("#Cabecera").html("Se ha verificado el pago");
 				$("#resultado").html("<h4>Muchas gracias. Hemos recibido el envío de "+nAmount+ " " + obj.Token + " desde "+ obj.From +"</h4>");
 				$("#descarga").html("<h4> Pulse para descargar su producto <a href='/shop/Libro/"+sLinkPDF+"' target='_blank'><img src='/shop/img/pdf.jpg' width='30px' height='40px')></a></h4>");			
 			}

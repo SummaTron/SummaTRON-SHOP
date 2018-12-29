@@ -31,7 +31,7 @@
     <script src='/tron/js/bootstrap.min.js'></script>
 	<script src="/tron/js/jquery-ui.min.js"></script>	
 	<script src="/tron/js/funcionestron.js" ></script>
-	<script src="/api/js/qrcode.min.js" ></script>
+	<script src="/api/js/jquery-qrcode-0.14.0.min.js" ></script>
 	<script src="/api/js/apisummatron.js" ></script> 
 
 </head>
@@ -104,7 +104,7 @@
 						 <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
 					</form>
 			</div>
-			<div id="PanelIdentication" style="display:block;"></div>
+			<div id="PanelIRS" style="display:block;"></div>
 		</div>
 		<div class="col-md-4">
 		  <div class="card my-4">
@@ -152,21 +152,15 @@
 </body>
 <script type="text/javascript">
 $("#cabecera").load("/shop/cabecera_Shop_ES.html");
-$("#PanelIdentication").load("/api/PanelIdentication.html", function() {
-	var obj;
-//Nueva cuenta de Shop
+$("#PanelIRS").load("/api/PanelIRS.html", function() {
 	sCuenta = "TDyTcMgsKGZ1ytLw3GA6birYuF2uc5rVWK";
 	Verificar(sCuenta,"ES","Mostrar_Lista");
-	document.getElementById("qrcodeId").addEventListener("click", function(){
-		$("#Cuenta").val('TRp4mj2N2bCFTsaaTFfj2No8RdnAFg7yzV');
-		Mostrar_Lista('TRp4mj2N2bCFTsaaTFfj2No8RdnAFg7yzV');
-	});
 });
 
 
 function Mostrar_Lista(sCuenta)
 {
-	$("#PanelIdentication").css("display","none");
+	$("#PanelIRS").css("display","none");
 	sZona="<br><h2>No se han encontrado Productos para su Cuenta</h2>";
 	$.get( "/shop/jsp/LeerProducto.jsp?Cuenta='"+sCuenta+"'", function(resp) {
 		$("#PanelLista").css("display","block");
@@ -188,7 +182,7 @@ function Mostrar_Lista(sCuenta)
 function Mostrar_Producto(i)
 {	oProducto = obj.data[i];
 	$("#PanelLista").css("display","none");
-	$("#PanelModificacion").css("display","block");
+	$("#PanelIRS").css("display","block");
 
 	$("#Id").val(oProducto.Id);
 	$("#Tipo").val(oProducto.Tipo);

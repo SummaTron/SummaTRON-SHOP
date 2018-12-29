@@ -31,7 +31,7 @@
     <script src='/tron/js/bootstrap.min.js'></script>
 	<script src="/tron/js/jquery-ui.min.js"></script>	
 	<script src="/tron/js/funcionestron.js" ></script>
-	<script src="/api/js/qrcode.min.js" ></script>
+	<script src="/api/js/jquery-qrcode-0.14.0.min.js" ></script>
 	<script src="/api/js/apisummatron.js" ></script> 
 
   </head>
@@ -57,7 +57,7 @@
 			</div>
 			<div id="PanelModificacion" style="display:none">
 					<br>
-					<label class="tronlabel" for="libro"><center><h2>Modification de Product</h2></center></label>	
+					<label class="tronlabel" for="libro"><center><h2>Product Modification</h2></center></label>	
 					<form action="/shop/jsp/SubirFicheros.jsp" enctype="MULTIPART/FORM-DATA" method="post">
 						<fieldset class="form-group">
 							<label class="tronlabel"  for="Id">Id</label>
@@ -102,7 +102,7 @@
 						 <button type="submit" class="btn btn-primary btn-lg">Send</button>
 					</form>
 			</div>
-			<div id="PanelIdentication" style="display:block"></div>
+			<div id="PanelIRS" style="display:block"></div>
 		</div>
 	    <div class="col-md-4">
 			  <div class="card my-4">
@@ -155,7 +155,7 @@
 </body>
 <script type="text/javascript">
 $("#cabecera").load("/shop/cabecera_Shop_EN.html");
-$("#PanelIdentication").load("/api/PanelIdentication.html", function() {
+$("#PanelIRS").load("/api/PanelIRS.html", function() {
 	sCuenta = "TDyTcMgsKGZ1ytLw3GA6birYuF2uc5rVWK";
 	Verificar(sCuenta,"EN","Mostrar_Lista");
 });
