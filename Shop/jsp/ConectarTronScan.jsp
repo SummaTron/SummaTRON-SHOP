@@ -28,13 +28,13 @@ System.out.println("ENTRO EN IDENTIFICAR:"+sDescripcion);
 	sLista = "{'From':'Error','Amount':'Error','Token':'Error','Data':'Error'}";
 	InputStream input;
 	Reader reader;
-	JSONObject obj;
+	JSONObject obj, obj1;
 	JSONArray arr;
 	System.out.println("Entro en Shop:" + sCuenta + " " + sDescripcion);
 	// Localiza la última transaccion
 	System.out.println(sUrlTransacciones);
 	// Localiza la última transaccion
-	while (k<30)	
+	while (k<60)	
 	{
 		try
 		{
@@ -57,26 +57,25 @@ System.out.println("ENTRO EN IDENTIFICAR:"+sDescripcion);
 					sTo = arr.getJSONObject(i).getString("toAddress");
 					sFrom = arr.getJSONObject(i).getString("ownerAddress");
 					sTimestamp = arr.getJSONObject(i).getString("timestamp");
-					
+					obj1 = new JSONObject(arr.getJSONObject(i).getString("contractData"));
+					sAmount = obj1.getString("amount");
+
+					sAmount = Long.toString(Long.valueOf(sAmount)/1000000);
 					sData = arr.getJSONObject(i).getString("data");	
-					if (sData.indexOf("-")<0)
+					if (sData.indexOf(":")<0)
 					{sData = hexToAscii(arr.getJSONObject(i).getString("data"));}	
 					
 					sData = sData.replaceAll(" Sent from TronWallet","");
-					
+					System.out.println(sData);
 
 					Long nDif=System.currentTimeMillis()-Long.valueOf(sTimestamp);
 					//System.out.println("Data:" + sData + " = "+sDescripcion + " Dif:"+nDif);
-					//System.out.println(sData.equals(sDescripcion));
-					System.out.println(i) ;
-					System.out.println (sData + " "+ sDescripcion);
-					System.out.println (nDif);
 					
 					if (nDif<60000) 
 					{
 						if (sData.equals(sDescripcion))
 						{
-							sLista = "{'From':'"+sFrom + "','Amount':'1','Token':'TRX','Data':'"+ sData +"'}";
+							sLista = "{'From':'"+sFrom + "','Amount':'"+sAmount+"','Token':'TRX','Data':'"+ sData +"'}";
 							k=100;
 							i=100;
 						}
@@ -86,9 +85,9 @@ System.out.println("ENTRO EN IDENTIFICAR:"+sDescripcion);
 					else
 						{i++;}
 				}
-				catch (Exception e) {i++;}
+				catch (Exception e) {System.out.println(e);i++;}
 			}
-			if (k<31)
+			if (k<61)
 			{Thread.sleep(2000); k++;}
 			//System.out.println("Data:" + sLista);
 		}

@@ -75,11 +75,15 @@ String sImagen="", sProducto="";
 					sProducto = sCuenta + item.getName();
 					fichero = new File(application.getRealPath("/")+"shop\\"+sTipo+"\\"+sProducto);
 				}
-                /*y lo escribimos en el servido*/
+                /*y lo escribimos en el servidor*/
 				System.out.println(fichero);
 				if (item.getName() != "" )
 				{
                 item.write(fichero);
+				sExterno="0";
+				}
+				else
+				{
 				sExterno="1";
 				}
 			}
