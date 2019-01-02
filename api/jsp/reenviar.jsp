@@ -40,8 +40,6 @@ try
 		objeto.put("asset_name",sToken);
 		objeto.put("amount",nAmount);
 
-	//System.out.println(objeto.toString());
-
 		Response doc = 
             Jsoup.connect(sUrlTransfer)
                 .userAgent("Mozilla/5.0")
@@ -53,9 +51,6 @@ try
 
 		result = doc.body();
 		JSONObject oSing = new JSONObject();
-		//sData=",\"data\":\"5492dad6774fa446c7606e72f6107ab9\"}}";
-		//result=result.replaceAll("}}",sData);
-		//System.out.println(result.toString());
 		
         oSing.put("transaction",result);
         oSing.put("privateKey",sPrivateKey);
