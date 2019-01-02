@@ -11,7 +11,7 @@ SummaTRON-SHOP proposes a system where the platform It only manages the list of 
 <br>
 Logically the type of digital products have to be of the type: Ebook, music, videos, drawings, etc. As long as they can be digitally uploaded and downloaded. 
 <br>
-The operation of SummaTRON-SHOP isá Based on 3 processes:
+The operation of SummaTRON-SHOP is based on 3 processes:
 1)	The insert of a product
 2)	The sale of products
 3)	The modification of products
