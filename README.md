@@ -16,3 +16,6 @@ The operation of SummaTRON-SHOP is based on 4 processes:
 2)	The sale of products
 3)	The modification of products
 4)  The delete of a product.
+
+<br>
+You can get all the information about SummaTRON-API proyect in our <a href="https://github.com/SummaTron/SummaTRON-SHOP/blob/master/SummaTRON_SHOP_WhitePaper_EN.pdf" target="blank">whitepaper</a>.
