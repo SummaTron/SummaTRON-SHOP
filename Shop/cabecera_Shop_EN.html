@@ -13,8 +13,11 @@
 				   <li class="nav-item">
 					<span style="font-size:2em;color:white;cursor:pointer" onClick="Abrir_Alta()">&nbsp;&nbsp;Insert&nbsp;&nbsp;</span>
 				</li>
-				   <li class="nav-item">
+				<li class="nav-item">
 					<span style="font-size:2em;color:white;cursor:pointer" onClick="Abrir_Modificacion()">&nbsp;&nbsp;Modify&nbsp;&nbsp;</span>
+				</li>
+				<li class="nav-item">
+					<span style="font-size:2em;color:white;cursor:pointer" onClick="Abrir_Borrado()">&nbsp;&nbsp;Delete&nbsp;&nbsp;</span>
 				</li>
 				<li class="nav-item">
 					&nbsp;&nbsp;<img src="/tron/img/Espanol.png" width="30" height="20" onClick="Idioma('ES')" style="margin-top:15px;cursor:pointer"/>
@@ -23,26 +26,9 @@
         </div>
     </nav>
 
-	<input type="hidden" id="Idioma" value= "ES">
+	<input type="hidden" id="Idioma" value= "EN">
 
     <!-- Page Content -->
 <script>
-function Abrir_SummaTron ()
-{
-	document.location.href="/index.html";
-}
 
-function Abrir_Shop ()
-{
-	document.location.href="/shop/index.html";
-}
-
-function Abrir_Alta ()
-{
-	document.location.href="/shop/alta.html";
-}
-function Abrir_Modificacion ()
-{
-	document.location.href="/shop/modificacion.html";
-}
 </script>

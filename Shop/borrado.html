@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta name="author" content="www.summatron.com">
-	<title>SummaTRON-SHOP. Digital product's shop based on TRX</title>
+	<title>SummaTRON-SHOP. Digital product's shop based on TRX</title>	
 	<meta name="description" content="Agregador de cuentas de TRON"/>
 	<meta name="title" content="SummaTron. TRX Accounts Viewer"/>
 	<meta name="keywords" content="criptodivisa, crytocurrency, criptomoneda, tron, bitcoin, binance, tronwallet, wallet, "/>
@@ -37,39 +37,36 @@
   </head>
 
   <body>
-
- 
     <!-- Navigation -->
 	<div id="cabecera"></div>
 	
     <!-- Page Content -->
     <div class="container">
-
 		<div class="row">
-        <!-- Post Content Column -->
-        <div class="col-lg-8">
+			<!-- Post Content Column -->
+			<div class="col-lg-8">
 			<br>
 			<div id="titulo">
-			<center><h2><label id="titulo">Modify a Product</label></h2></center>
+			<center><h2><label id="titulo">Delete Product</label></h2></center>
 			</div>
-			<div id="PanelLista" style="display:none">
-				<br><br>
-				<table>
-				<tbody id="zona">
-				</tbody>
-				</table>
-			</div>
-			<div id="PanelModificacion" style="display:none">
+				<div id="PanelLista" style="display:none">
+					<br><br>
+					<table>
+					<tbody id="zona">
+					</tbody>
+					</table>
+				</div>
+				<div id="PanelBorrado" style="display:none">
 					<br>
-					<label class="tronlabel" for="libro"><center><h2>Product Modification</h2></center></label>	
-					<form action="/shop/jsp/SubirFicheros.jsp" enctype="MULTIPART/FORM-DATA" method="post">
+					<label class="tronlabel" for="libro"><center><h2>Product to Delete</h2></center></label>	
+					<div id="formborrado">
 						<fieldset class="form-group">
 							<label class="tronlabel"  for="Id">Id</label>
 							<input class="form-control" id="Id" name="Id" readonly>
 						 </fieldset>
 						<fieldset class="form-group">
 							<label class="tronlabel"  for="Tipo">Tipo</label>
-							<select class="form-control" id="Tipoo" name="Tipo" value="">
+							<select class="form-control" id="Tipo" name="Tipo" value="" readonly>
 							  <option value="Libro">eBook</option>
 							  <option value="Musica">Music</option>
 							  <option value="Imagen">Image</option>
@@ -79,75 +76,56 @@
 						</fieldset>
 						<fieldset class="form-group">
 							<label class="tronlabel"  for="Precio">Price</label>
-							<input class="form-control" id="Precio" name="Precio" maxlength="8" value="" required>
+							<input class="form-control" id="Precio" name="Precio" maxlength="8" value="" readonly>
 						 </fieldset>
 						<fieldset class="form-group">
 							<label class="tronlabel"  for="Cuenta">Acount TRX</label>
-							<input class="form-control" id="Cuenta" name="Cuenta" maxlength="34" value="" required>
+							<input class="form-control" id="Cuenta" name="Cuenta" maxlength="34" value="" readonly>
 						 </fieldset>
 						  <fieldset class="form-group">
 							<label class="tronlabel"  for="Titulo">Title</label>
-							<input class="form-control"  type="Text" id="Titulo" name="Titulo" maxlength="45" value="" required></input>
+							<input class="form-control"  type="Text" id="Titulo" name="Titulo" maxlength="45" value="" readonly></input>
 						  </fieldset>
 						  <fieldset class="form-group">
 							<label class="tronlabel"  for="Descripcion">Description</label>
-							<textarea class="form-control"  type="Text" id="Descripcion" name="Descripcion" maxlength="1024" rows="3" value="" required></textarea>
+							<textarea class="form-control"  type="Text" id="Descripcion" name="Descripcion" maxlength="1024" rows="3" value="" readonly></textarea>
 						  </fieldset>
 						<fieldset class="form-group">
 							<label class="tronlabel"  for="Imagen">External URL of the Image or select file to be downloaded from Shop</label>
-							<input class="form-control" id="URLImagen" name="URLImagen" maxlength="255" value="">
-							<input type="file" name="Imagen" />
+							<input class="form-control" id="URLImagen" name="URLImagen" maxlength="255" value="" readonly>
 						 </fieldset>
 						 <fieldset class="form-group">
 							<label class="tronlabel"  for="Imagen">External URL of the Product or select file to be downloaded from Shop</label>
-							<input class="form-control" id="URLProducto" name="URLProducto" maxlength="255" value="">
-							<input type="file" name="Producto" />
+							<input class="form-control" id="URLProducto" name="URLProducto" maxlength="255" value="" readonly>
 						 </fieldset>
-						 <button type="submit" class="btn btn-primary btn-lg">Send</button>
-					</form>
+						<center><button class="btn btn-primary" id="grabar"  onclick="Borrado()">Delete</button></center>
+					</div>
+				</div>
+				<div id="PanelIRS" style="display:block"></div>
 			</div>
-			<div id="PanelIRS" style="display:block"></div>
-		</div>
-	    <div class="col-md-4">
-			  <div class="card my-4">
-				<h5 class = "card-header"> How to modify a product? </h5>
-				<div class = "card-body">
-				<p style = "text-align: justify">
-				Send 1 IdTronix, once detected the shipment will have access to the product.
-				<br> <br>
-				Modify the fields that are requested in the form:
-				<br> <br>
-				- Type of product<br> 
-				- Price. <br>
-				- The TRX account where you will receive the collections. <br>
-				- The title to show <br>
-				- A description of 1,024 characters maximum <br>
-				- URL of the image to show or if you upload a file <br>
-				- URL of the product to download or upload a file <br>
-				</p>
-				</div>
+			<div class="col-md-4">
+				<div class="card my-4">
+					<h5 class = "card-header"> How to delete a product? </h5>
+					<div class = "card-body">
+					<p style = "text-align: justify">
+					Send 1 IdTronix, once detected the shipment will have access to the product.
+					<br> <br>
+					Click on Delete buttom.
+					<br> <br>
+					If the product is correctly deleted, will show an alert confirming it, in another case an error appears.
+					</p>
+					</div>
 				</div>
 				<div class = "card my-4">
-				<h5 class = "card-header">Inserting a Product</h5>
-				<div class = "card-body">
-				<p style = "text-align: justify">
-				In <a href="http://www.summatron.com/shop/alta.html" target="_blank"> product registration </a> you will be able to register new digital products. No registration will be necessary, the TRX account is the entry key. <br>
-				The image and the product can be linked in an external page (or upload it to Shop), in Summatron / Shop there will only be the description, the price and the TRX account of collection. <br>
-				This way you can check that downloads and payments match, <br>
-				This is decentralization and freedom on the Internet 4.0 thanks to TRON !!.
-				</p>
+					<h5 class = "card-header"> <strong> How does SummaTron earn money? </strong> </h5>
+					<div class = "card-body">
+					<p style = "text-align: justify">
+					TRON is the key, to update of delete the information of the products there is no previous registration, so to ensure who is the owner must send 1 IdTronix to get access, verifying that the owner of the product is the owner of the account.
+					<br> <br>
+					In addition donations are always accepted to maintain and grow this project.
+					</p> 
+					</div>
 				</div>
-				</div>
-				<div class = "card my-4">
-				<h5 class = "card-header"> <strong> How does SummaTron earn money? </strong> </h5>
-				<div class = "card-body">
-				<p style = "text-align: justify">
-				TRON is the key, to update the information of the products there is no record, so to ensure who is the owner must send 1 IdTronix to get access, verifying that the owner of the product is the owner of the account.
-				<br> <br>
-				In addition donations are always accepted to maintain and grow this project.
-				</p> 
-				</div>
-			  </div>
 			</div>
 		</div>
 	</div>
@@ -166,7 +144,7 @@ $("#PanelIRS").load("/api/PanelIRS.html", function() {
 
 function Mostrar_Lista(sCuenta)
 {
-	$("#PanelPago").css("display","none");
+	$("#PanelIRS").css("display","none");
 
 	sZona="<br><h2>No se han encontrado Productos para su Cuenta</h2>";
 	$.get( "/shop/jsp/LeerProducto.jsp?Cuenta='"+sCuenta+"'", function(resp) {
@@ -189,7 +167,7 @@ function Mostrar_Lista(sCuenta)
 function Mostrar_Producto(i)
 {	oProducto = obj.data[i];
 	$("#PanelLista").css("display","none");
-	$("#PanelModificacion").css("display","block");
+	$("#PanelBorrado").css("display","block");
 
 	$("#Id").val(oProducto.Id);
 	$("#Tipo").val(oProducto.Tipo);
@@ -207,6 +185,16 @@ function Mostrar_Producto(i)
 		$("#URLImagen").val(oProducto.URLImagen);
 		$("#URLProducto").val(oProducto.URLProducto);	
 	}
+}
+function Borrado()
+{
+	sId= $("#Id").val();
+	$.get("https://www.summatron.com/shop/jsp/BajaProducto.jsp?Id='"+sId+"'", function(resp)
+	{
+		obj=JSON.parse(resp)
+		alert(obj.result);
+		Abrir_Borrado();
+	});
 }
 </script>
 </html>

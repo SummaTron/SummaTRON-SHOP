@@ -1,0 +1,202 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-125578563-1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-125578563-1');
+	</script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="www.summatron.com">
+	<title>SummaTRON-SHOP. Digital product's shop based on TRX</title>		
+	<meta name="description" content="Agregador de cuentas de TRON"/>
+	<meta name="title" content="SummaTron. TRX Accounts Viewer"/>
+	<meta name="keywords" content="criptodivisa, crytocurrency, criptomoneda, tron, bitcoin, binance, tronwallet, wallet, "/>
+
+ 	<link rel="icon" type="image/png" href="/icon.png" />
+    <link href="/tron/css/blog-post.css" rel="stylesheet">
+	<link href="/tron/css/font-awesome.min.css" rel="stylesheet">
+    <link href='/tron/css/bootstrap.min.css' rel='stylesheet' />
+	<link href='/tron/css/summadata.css' rel='stylesheet' />
+	<link href='/tron/css/jquery-ui.min.css' rel='stylesheet' />
+
+	<script src='/tron/js/scripts.js'></script>
+    <script src='/tron/js/jquery.min.js'></script>
+    <script src='/tron/js/bootstrap.min.js'></script>
+	<script src="/tron/js/jquery-ui.min.js"></script>	
+	<script src="/shop/js/funcionesshop.js" ></script>
+	<script src="/api/js/jquery-qrcode-0.14.0.min.js" ></script>
+	<script src="/api/js/apisummatron.js" ></script> 
+
+  </head>
+
+  <body>
+    <!-- Navigation -->
+	<div id="cabecera"></div>
+	
+    <!-- Page Content -->
+    <div class="container">
+		<div class="row">
+			<!-- Post Content Column -->
+			<div class="col-lg-8">
+			<br>
+			<div id="titulo">
+			<center><h2><label id="titulo">Borrar Producto</label></h2></center>
+			</div>
+				<div id="PanelLista" style="display:none">
+					<br><br>
+					<table>
+					<tbody id="zona">
+					</tbody>
+					</table>
+				</div>
+				<div id="PanelBorrado" style="display:none">
+					<br>
+					<label class="tronlabel" for="libro"><center><h2>Producto a Borrar</h2></center></label>	
+					<div id="formborrado">
+						<fieldset class="form-group">
+							<label class="tronlabel"  for="Id">Id</label>
+							<input class="form-control" id="Id" name="Id" readonly>
+						 </fieldset>
+						<fieldset class="form-group">
+							<label class="tronlabel"  for="Tipo">Tipo</label>
+							<select class="form-control" id="Tipo" name="Tipo" value="" readonly>
+							  <option value="Libro">eBook</option>
+							  <option value="Musica">Música</option>
+							  <option value="Imagen">Imagen</option>
+							  <option value="Documento">Documento</option>
+							  <option value="Otro">Otro</option>
+							</select>
+						</fieldset>
+						<fieldset class="form-group">
+							<label class="tronlabel"  for="Precio">Precio</label>
+							<input class="form-control" id="Precio" name="Precio" maxlength="8" value="" readonly>
+						 </fieldset>
+						<fieldset class="form-group">
+							<label class="tronlabel"  for="Cuenta">Address TRX</label>
+							<input class="form-control" id="Cuenta" name="Cuenta" maxlength="34" value="" readonly>
+						 </fieldset>
+						  <fieldset class="form-group">
+							<label class="tronlabel"  for="Titulo">Título</label>
+							<input class="form-control"  type="Text" id="Titulo" name="Titulo" maxlength="45" value="" readonly></input>
+						  </fieldset>
+						  <fieldset class="form-group">
+							<label class="tronlabel"  for="Descripcion">Descripción</label>
+							<textarea class="form-control"  type="Text" id="Descripcion" name="Descripcion" maxlength="1024" rows="3" value="" readonly></textarea>
+						  </fieldset>
+						<fieldset class="form-group">
+							<label class="tronlabel"  for="Imagen">URL Externa de la Imagen o seleccione un fichero que será descargaddo desde Shop</label>
+							<input class="form-control" id="URLImagen" name="URLImagen" maxlength="255" value="" readonly>
+						 </fieldset>
+						 <fieldset class="form-group">
+							<label class="tronlabel"  for="Imagen">URL Externa del Producto o seleccione un fichero que será descargado desde Shop</label>
+							<input class="form-control" id="URLProducto" name="URLProducto" maxlength="255" value="" readonly>
+						 </fieldset>
+						<center><button class="btn btn-primary" id="grabar"  onclick="Borrado()">Borrar</button></center>
+					</div>
+				</div>
+				<div id="PanelIRS" style="display:block"></div>
+			</div>
+			<div class="col-md-4">
+				<div class="card my-4">
+					<h5 class = "card-header">¿Cómo borrar un producto? </h5>
+					<div class = "card-body">
+					<p style = "text-align: justify">
+					Envíe 1 IdTronix, una vez detectado el envío se dará acceso al registro.
+					<br> <br>
+					Pulse sobre el botón Borrar.
+					<br> <br>
+					Si el producto es borrado correctamente, se mostrará una alerta confirmándolo, en otro caso se mostrará un error.
+					</p>
+					</div>
+				</div>
+				<div class = "card my-4">
+					<h5 class = "card-header"> <strong> Cómo gana dinero SummaTRON? </strong> </h5>
+					<div class = "card-body">
+					<p style = "text-align: justify">
+					TRON es la clave, para actualizar la información de los productos o para borrar un registro, no hay
+					registro previo, así que para asegurar quien es el propietario éste debe enviar 1 IdTronix para tener 
+					acceso, verificando que el propietario del producto es el propietario de la cuenta TRON.
+					<br> <br>
+					Además las donaciones siempre son aceptadas para mantener y hacer crecer este proyecto.
+					</p> 
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<input type="hidden" id="Cuenta" value= "">
+<input type="hidden" id="Descripcion" value= "">
+<input type="hidden" id="Importe" value= "">
+<input type="hidden" id="Time" value= "0">
+<input type="hidden" id="Recibido" value= "0">
+</body>
+<script type="text/javascript">
+$("#cabecera").load("/shop/cabecera_Shop_EN.html");
+$("#PanelIRS").load("/api/PanelIRS.html", function() {
+	sCuenta = "TDyTcMgsKGZ1ytLw3GA6birYuF2uc5rVWK";
+	Verificar(sCuenta,"EN","Mostrar_Lista");
+});
+
+function Mostrar_Lista(sCuenta)
+{
+	$("#PanelIRS").css("display","none");
+
+	sZona="<br><h2>No se han encontrado Productos para su Cuenta</h2>";
+	$.get( "/shop/jsp/LeerProducto.jsp?Cuenta='"+sCuenta+"'", function(resp) {
+		$("#PanelLista").css("display","block");
+		obj = JSON.parse(resp);
+		if (obj.data.length>0)
+		{sZona="";}
+		for (i in obj.data)
+		{
+			sClick= "Mostrar_Producto('"+i+"')";
+			sZona=sZona+"<tr style='cursor:pointer' onclick="+sClick +"><td  style='padding:12px'> <img src='/shop/img/"+obj.data[i].URLImagen+"' width='40px' height= '50px' ></td>" +
+			"<td>"+obj.data[i].Titulo_ES+"</td>"+			
+			"<td style='padding:12px'>Precio: "+obj.data[i].Precio+" TRX</td>"+
+			"</tr>";
+		}	
+		$("#zona").append(sZona);		
+	});
+}
+
+function Mostrar_Producto(i)
+{	oProducto = obj.data[i];
+	$("#PanelLista").css("display","none");
+	$("#PanelBorrado").css("display","block");
+
+	$("#Id").val(oProducto.Id);
+	$("#Tipo").val(oProducto.Tipo);
+	$("#Cuenta").val(oProducto.Cuenta);
+	$("#Precio").val(oProducto.Precio);
+	$("#Titulo").val(oProducto.Titulo_ES);
+	$("#Descripcion").val(oProducto.Descripcion_ES);
+	if (oProducto.Externo.trim()=="1")
+	{
+		$("#URLImagen").val("");
+		$("#URLProducto").val("");	
+	}
+	else
+	{
+		$("#URLImagen").val(oProducto.URLImagen);
+		$("#URLProducto").val(oProducto.URLProducto);	
+	}
+}
+function Borrado()
+{
+	sId= $("#Id").val();
+	$.get("https://www.summatron.com/shop/jsp/BajaProducto.jsp?Id='"+sId+"'", function(resp)
+	{
+		obj=JSON.parse(resp)
+		alert(obj.result);
+		Abrir_Borrado();
+	});
+}
+</script>
+</html>
