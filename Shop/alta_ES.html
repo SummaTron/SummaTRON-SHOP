@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta name="author" content="www.summatron.com">
-	<title>SummaTRON-SHOP. Digital product's shop based on TRX</title>
+	<title>SummaTron. TRX Accounts Viewer</title>	
 	<meta name="description" content="Agregador de cuentas de TRON"/>
 	<meta name="title" content="SummaTron. TRX Accounts Viewer"/>
 	<meta name="keywords" content="criptodivisa, crytocurrency, criptomoneda, tron, bitcoin, binance, tronwallet, wallet, "/>
@@ -30,8 +30,8 @@
     <script src='/tron/js/jquery.min.js'></script>
     <script src='/tron/js/bootstrap.min.js'></script>
 	<script src="/tron/js/jquery-ui.min.js"></script>	
-	<script src="/shop/js/funcionesshop.js" ></script>
-	<script src="/shop/js/qrcode.min.js" ></script>
+	<script src="/tron/js/funcionestron.js" ></script>
+	<script src="/api/js/qrcode.min.js" ></script>
 	<script src="/api/js/apisummatron.js" ></script> 
 
   </head>
@@ -50,7 +50,7 @@
 				<div id="PanelAlta">
 					<br>
 					<label class="tronlabel" for="libro"><center><h2>Alta de Producto</h2></center></label>	
-					<form action="/shop/jsp/SubirFicheros.jsp" enctype="MULTIPART/FORM-DATA" method="post">
+					<form action="jsp/AltaProducto.jsp" method="post">
 						<fieldset class="form-group">
 							<label class="tronlabel"  for="Tipo">Tipo</label>
 							<select class="form-control" id="Tipoo" name="Tipo" value="">
@@ -78,14 +78,12 @@
 							<textarea class="form-control"  type="Text" id="Descripcion" name="Descripcion" maxlength="1024" rows="3" value="" required></textarea>
 						  </fieldset>
 						<fieldset class="form-group">
-							<label class="tronlabel"  for="Imagen">URL externa de la Imagen o seleccione archivo para que se descargue desde Shop</label>
+							<label class="tronlabel"  for="Imagen">URL externa de la Imagen para enlazar desde Shop</label>
 							<input class="form-control" id="URLImagen" name="URLImagen" maxlength="255" value="">
-							<input type="file" name="Imagen" />
 						 </fieldset>
 						 <fieldset class="form-group">
-							<label class="tronlabel"  for="Imagen">URL externa del Producto o seleccione archivo para que se descargue desde Shop</label>
+							<label class="tronlabel"  for="Imagen">URL externa del Producto para enlazar desde Shop</label>
 							<input class="form-control" id="URLProducto" name="URLProducto" maxlength="255" value="">
-							<input type="file" name="Producto" />
 						 </fieldset>
 						 <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
 					</form>

@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta name="author" content="www.summatron.com">
-	<title>SummaTRON-SHOP. Digital product's shop based on TRX</title>
+	<title>SummaTron. TRX Accounts Viewer</title>	
 	<meta name="description" content="Agregador de cuentas de TRON"/>
 	<meta name="title" content="SummaTron. TRX Accounts Viewer"/>
 	<meta name="keywords" content="criptodivisa, crytocurrency, criptomoneda, tron, bitcoin, binance, tronwallet, wallet, "/>
@@ -30,9 +30,9 @@
     <script src='/tron/js/jquery.min.js'></script>
     <script src='/tron/js/bootstrap.min.js'></script>
 	<script src="/tron/js/jquery-ui.min.js"></script>	
-	<script src="/shop/js/funcionesshop.js" ></script>
+	<script src="/tron/js/funcionestron.js" ></script>
 	<script src="/api/js/jquery-qrcode-0.14.0.min.js" ></script>
-	<script src="/api/js/apisummatron.js" ></script> 
+	<script src="/api/js/apisummatron.js" ></script>  
 
 </head>
 <body>
@@ -104,14 +104,14 @@
 						 <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
 					</form>
 			</div>
-			<div id="PanelIRS" style="display:block;"></div>
+			<div id="PanelIdentication" style="display:block;"></div>
 		</div>
 		<div class="col-md-4">
 		  <div class="card my-4">
 			<h5 class="card-header">¿Cómo modificar un producto?</h5>
 			<div class="card-body">
 				<p style="text-align:justify">
-					Realice el envío de 1 IdTronix, una vez detectado el envío tendrá acceso al producto.
+					Realice el envío de 1 TRX, una vez detectado el envío tendrá acceso al producto.
 					<br>
 					Modifique los campos que se le solicitan en el formulario:
 					<br><br>
@@ -152,7 +152,7 @@
 </body>
 <script type="text/javascript">
 $("#cabecera").load("/shop/cabecera_Shop_ES.html");
-$("#PanelIRS").load("/api/PanelIRS.html", function() {
+$("#PanelIdentication").load("/api/PanelIRS.html", function() {
 	sCuenta = "TDyTcMgsKGZ1ytLw3GA6birYuF2uc5rVWK";
 	Verificar(sCuenta,"ES","Mostrar_Lista");
 });
@@ -160,7 +160,7 @@ $("#PanelIRS").load("/api/PanelIRS.html", function() {
 
 function Mostrar_Lista(sCuenta)
 {
-	$("#PanelIRS").css("display","none");
+	$("#PanelIdentication").css("display","none");
 	sZona="<br><h2>No se han encontrado Productos para su Cuenta</h2>";
 	$.get( "/shop/jsp/LeerProducto.jsp?Cuenta='"+sCuenta+"'", function(resp) {
 		$("#PanelLista").css("display","block");
@@ -182,7 +182,7 @@ function Mostrar_Lista(sCuenta)
 function Mostrar_Producto(i)
 {	oProducto = obj.data[i];
 	$("#PanelLista").css("display","none");
-	$("#PanelIRS").css("display","block");
+	$("#PanelModificacion").css("display","block");
 
 	$("#Id").val(oProducto.Id);
 	$("#Tipo").val(oProducto.Tipo);

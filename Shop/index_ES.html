@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta name="author" content="www.summatron.com">
-	<title>SummaTRON-SHOP. Digital product's shop based on TRX</title>	
+	<title>SummaTron Shop. TRX e-commerce</title>	
 	<meta name="description" content="Agregador de cuentas de TRON"/>
 	<meta name="title" content="SummaTron. TRX Accounts Viewer"/>
 	<meta name="keywords" content="criptodivisa, crytocurrency, criptomoneda, tron, bitcoin, binance, tronwallet, wallet, "/>
@@ -30,8 +30,8 @@
     <script src='/tron/js/jquery.min.js'></script>
     <script src='/tron/js/bootstrap.min.js'></script>
 	<script src="/tron/js/jquery-ui.min.js"></script>	
-	<script src="/shop/js/funcionesshop.js" ></script>
-	<script src="/shop/js/qrcode.min.js" ></script>
+	<script src="/tron/js/funcionestron.js" ></script>
+	<script src="/api/js/qrcode.min.js" ></script>
 	<script src="/api/js/apisummatron.js" ></script> 
 
   </head>
@@ -78,9 +78,6 @@
 					<div id="Pago">
 						<label id="DescripcionPago"></label>
 						<table><tr><td slign="center" style="padding-right:20px">
-						<center><label>Para PAGAR con TronWalletMe</label></center>
-						<div id="qrcodePagar" style="border-style:solid;border-width:5px;border-color:#242489;width:200px; height:200px; margin-top:20px;margin-left:20px;padding:5px"></div>
-						</td><td align="center">
 						<label>Para ENVIAR con cualquier Wallet</label><br>
 						<label id="DatosEnviar" style="font-size:12px"></label>
 						<div id="qrcodeEnviar" style="border-style:solid;border-width:5px;border-color:#242489;width:200px; height:200px; margin-top:20px;margin-left:20px;padding:5px"></div>
@@ -103,7 +100,7 @@
             <div class="card-body">
 			<p style="text-align:justify">
 			<b>Shop</b> es una página de venta se productos dígitales cuyo pago se realiza exclusivamnente con TRX.<br>
-			Los compradores sólo tendrán que usar su TronWallet para Pagar o Enviar el importe del producto.
+			Los compradores sólo tendrán que usar su wallet para Pagar o Enviar el importe del producto.
 			<br>
 			Una vez verificado el pago (unos segundos), Shop permitirá la descarga del producto.<br>
 			El vendedor recibirá automáticamente los TRX en su cuenta.
@@ -151,10 +148,6 @@
 <script type="text/javascript">
 $("#cabecera").load("/shop/cabecera_Shop_ES.html");
 var myVar;
-var qrcodePagar = new QRCode(document.getElementById("qrcodePagar"), {
-	width : 180,
-	height : 180
-});
 var qrcodeEnviar = new QRCode(document.getElementById("qrcodeEnviar"), {
 	width : 180,
 	height : 180
@@ -171,7 +164,7 @@ function makeCode (sCuenta,sImporte,sTitulo,sLink) {
 	$("#PanelPago").css("display","block");
 	$("#PanelLista").css("display","none");
 	sR = Math.floor((Math.random() * 10000) + 1);
-    sDes = "Ref.:"+sR;
+    sDes = "Ref:"+sR;
     $("#Link").val(sLink);
 	$("#Descripcion").val(sDes);
 	$("#Importe").val(sImporte);
@@ -180,9 +173,6 @@ function makeCode (sCuenta,sImporte,sTitulo,sLink) {
 	$("#Cuenta").html("<b>"+sCuenta+"</b>");
 	sText = sCuenta;
 	qrcodeEnviar.makeCode(sText);
-	sText = '{"amount":"'+sImporte+'","data":"'+sDes+'","token":"TRX","address":"'+sCuenta+'"}';
-	$("#Pagar").css("display","block");
-	qrcodePagar.makeCode(sText);
 	Verificar();
 }
 function Verificar () 
@@ -208,14 +198,14 @@ function Verificar ()
 			if ((nImporte==nAmount) && (obj.Token=="TRX"))
 			{	
 				$("#DescripcionPago").html("");
-				$("#Cabecera").html("Se ha verificado el pago");
-				$("#resultado").html("<h4>Muchas gracias. Hemos recibido el envío de "+nAmount+ " " + obj.Token + " desde "+ obj.From +"</h4>");
-				$("#descarga").html("<h4> Pulse para descargar su producto <a href='/shop/Libro/"+sLinkPDF+"' target='_blank'><img src='/shop/img/pdf.jpg' width='30px' height='40px')></a></h4>");			
+				$("#Cabecera").html("Se ha verificado el envío");
+				$("#resultado").html("<h4>Muchas gracias. Hemos recibido un pago de "+ obj.Amount+ " " + obj.Token + " desde "+ obj.From +"</h4>");
+				$("#descarga").html("<h4> Pulse para descargar su producto  <a href='"+sLinkPDF+"' target='_blank'><img src='/shop/img/pdf.jpg' width='30px' height='40px')></a></h4>");			
 			}
 			else
 			{
-				$("#resultado").html("<h4>El importe no coincide, pero muchas gracias.<br> Hemos recibido una donación de "+ obj.Amount+ " " + obj.Token+ " desde "+ obj.From +"</h4>");
-				$("#descarga").html("<h4> Pulse para descargar su producto <a href='/shop/Libro/"+sLinkPDF+"' target='_blank'><img src='/shop/img/pdf.jpg' width='30px' height='40px')></a></h4>");			
+				$("#resultado").html("<h4>El importe no coincide, pero muchas gracias.<br> Hemos recibido un pago desde "+ obj.From +"</h4>");
+				$("#descarga").html("<h4> Pulse para descargar su producto <a href='"+sLinkPDF+"' target='_blank'><img src='/shop/img/pdf.jpg' width='30px' height='40px')></a></h4>");			
 			}
 		}
 	});
@@ -240,7 +230,7 @@ function Mostrar()
 			sImagen = aCelda[4];
 			sProducto = aCelda[5];
 			sClick= "makeCode('"+sCuenta+"','"+sPrecio+"','"+sTitulo.split(" ").join("@")+"','"+sProducto+"');";
-			sZona=sZona+"<tr><td> <img src='/shop/img/"+sImagen+"' width='120px' height= '150px'  onclick="+sClick + " style='cursor:pointer' >" +
+			sZona=sZona+"<tr><td> <img src='"+sImagen+"' width='120px' height= '150px'  onclick="+sClick + " style='cursor:pointer' >" +
 			"<br><br><center><label style='font-size:12px'>Precio: "+sPrecio+" TRX</label></center></td>"+
 			"<td style='padding:10px'><div style='text-align:justify'>"+
 			"<b>"+sTitulo+"</b><br><br>"+sDescripcion+	
