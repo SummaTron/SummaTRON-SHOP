@@ -17,22 +17,20 @@
 <%
 String sCuenta= request.getParameter("Cuenta").replaceAll("'","");
 String sDescripcion = request.getParameter("Descripcion").replaceAll("'","");
-String sUrlTransacciones= "https://api.tronscan.org/api/transaction?sort=-timestamp&limit=3&token=TRX&address="+sCuenta;
-String sUrlHash= "https://wlcyapi.tronscan.org/api/transaction/";
+String sUrlTransacciones= "http://apilist.tronscan.org/api/transfer?sort=-timestamp&count=true&limit=3&start=0&token=_&address="+sCuenta;
+String sUrlHash= "https://apilist.tronscan.org/api/transaction-info?hash=";
 System.out.println("ENTRO EN IDENTIFICAR:"+sDescripcion);
 	Integer i=0, k=0, nTope=0, nIni=0, nFin=0, nVeces=0;
 	String sRespuesta="", sLista="", sTransacciones = "", sStatus="", sT="", sAccount="", sSaldo="", sName="", sTokenName="", sToken="";
 	String sBalance="", sHash="", sData="", sTo="", sFrom="", sAmount="", sTimestamp;
+	Long nTimestamp, nCantidad;
 	int intValueOfChar;
 	String [] aZonas, aTransacciones;
 	sLista = "{'From':'Error','Amount':'Error','Token':'Error','Data':'Error'}";
 	InputStream input;
 	Reader reader;
-	JSONObject obj, obj1;
+	JSONObject obj,obj1,objh;
 	JSONArray arr;
-	System.out.println("Entro en Shop:" + sCuenta + " " + sDescripcion);
-	// Localiza la última transaccion
-	System.out.println(sUrlTransacciones);
 	// Localiza la última transaccion
 	while (k<60)	
 	{
@@ -52,30 +50,33 @@ System.out.println("ENTRO EN IDENTIFICAR:"+sDescripcion);
 			if (nTope>3){nTope=3;}
 			while (i < nTope)
 			{	
+		
 				try
 				{
-					sTo = arr.getJSONObject(i).getString("toAddress");
-					sFrom = arr.getJSONObject(i).getString("ownerAddress");
-					sTimestamp = arr.getJSONObject(i).getString("timestamp");
-					obj1 = new JSONObject(arr.getJSONObject(i).getString("contractData"));
-					sAmount = obj1.getString("amount");
-
-					sAmount = Long.toString(Long.valueOf(sAmount)/1000000);
-					sData = arr.getJSONObject(i).getString("data");	
-					if (sData.indexOf(":")<0)
-					{sData = hexToAscii(arr.getJSONObject(i).getString("data"));}	
-					
+					sHash = arr.getJSONObject(i).getString("transactionHash");
+					sTo = arr.getJSONObject(i).getString("transferToAddress");
+					sFrom = arr.getJSONObject(i).getString("transferFromAddress");
+					nCantidad = arr.getJSONObject(i).getLong("amount")/1000000;
+					nTimestamp = arr.getJSONObject(i).getLong("timestamp");
+					sTransacciones="";
+					input = new URL(sUrlHash+sHash).openStream();
+					reader = new InputStreamReader(input, "UTF-8");
+					while ((intValueOfChar = reader.read()) != -1) {
+					sTransacciones += (char) intValueOfChar;
+					}
+					reader.close();
+					obj1= new JSONObject(sTransacciones);
+					sData = obj1.getString("data");					
 					sData = sData.replaceAll(" Sent from TronWallet","");
-					System.out.println(sData);
-
-					Long nDif=System.currentTimeMillis()-Long.valueOf(sTimestamp);
-					//System.out.println("Data:" + sData + " = "+sDescripcion + " Dif:"+nDif);
 					
-					if (nDif<60000) 
+
+					Long nDif=System.currentTimeMillis()-nTimestamp;
+					
+					if (nDif<6000000) 
 					{
 						if (sData.equals(sDescripcion))
 						{
-							sLista = "{'From':'"+sFrom + "','Amount':'"+sAmount+"','Token':'TRX','Data':'"+ sData +"'}";
+							sLista = "{'From':'"+sFrom + "','Amount':'"+nCantidad+"','Token':'TRX','Data':'"+ sData +"'}";
 							k=100;
 							i=100;
 						}
@@ -85,11 +86,10 @@ System.out.println("ENTRO EN IDENTIFICAR:"+sDescripcion);
 					else
 						{i++;}
 				}
-				catch (Exception e) {System.out.println(e);i++;}
+				catch (Exception e) {System.out.println("error"+e) ; i++;}
 			}
-			if (k<61)
+			if (k<60)
 			{Thread.sleep(2000); k++;}
-			//System.out.println("Data:" + sLista);
 		}
 		catch (Exception e)
 		{
