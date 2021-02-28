@@ -4,18 +4,18 @@ const Espanol =
 "Enviar":"ENVIAR con cualquier Wallet",
 "Importe":"Importe",
 "Descripcion":"Descripción",
-"Resultado":"Estamos verificando el envío",
+"Resultado":"Estamos verificando el envío <img src='\\tron\\img\\loading.gif'/>",
 "Tiempo":"Tiempo de espera superado",
 "Registrar":"Registrar",
 "Firmar":"Firmar Documento"
 }
 const Ingles =
 {
-"Id":"Sign in",
+"Id":"Login",
 "Enviar":"SEND with any Wallet",
 "Importe":"Import",
 "Descripcion":"Description",
-"Resultado":"Verifying the sending of data",
+"Resultado":"Verifying the sending of data <img src='\\tron\\img\\loading.gif'/>",
 "Tiempo":"Time exceeded",
 "Registrar":"Sign up",
 "Firmar":"Sign Document"
@@ -45,7 +45,7 @@ function Copy(sCampo)
 			document.execCommand('copy');
 			document.body.removeChild(textArea);
 			window.scrollBy(0, -1000);
-			alert("Copied, paste on IdTron icon")
+			alert("Copied, paste on IdTron icon, then close this alert")
         }
 		else
 		{
@@ -57,7 +57,7 @@ function Copy(sCampo)
 			el.select();
 			document.execCommand('copy');
 			document.body.removeChild(el);
-			alert("Copied, paste on IdTron icon");	
+			alert("Copied, paste on IdTron icon, then close this alert");	
 		}
 		
 }
@@ -88,7 +88,8 @@ function Verificar (sCuenta, sIdioma,sFuncion)
 			$("#Importe").val(sImporte);
 			$("#Descripcion").val(sDescripcion);
 			$("#DatosEnviar").html("("+oLiterales.Importe+": <b>1 IdTronix</b>. "+oLiterales.Descripcion+": <b>"+sDescripcion+"</b>)");
-			sText = '{"amount":"'+sImporte+'","data":"'+sDescripcion+'","token":"IdTronix","address":"'+sCuenta+'"}';
+//			sText = '{"amount":"'+sImporte+'","data":"'+sDescripcion+'","token":"IdTronix","address":"'+sCuenta+'"}';
+			sText = sCuenta;
 			$("#Context").val(sText);
 			$("#qrcodeId").qrcode({
 				render:'canvas',
@@ -116,8 +117,8 @@ function Verificar (sCuenta, sIdioma,sFuncion)
 				if ((obj.Amount==sImporte) || (obj.Data==sDescripcion))
 				{	
 					$("#PanelIRS").css("display","none");
-					$("#Cuenta").val(obj.From);
-					eval( sFuncion + '("'+obj.From+'")' ); 
+					$("#Cuenta").val(do58Encode(obj.From));
+					eval( sFuncion + '("'+$("#Cuenta").val()+'")' ); 
 				}
 			}
 		});
@@ -148,7 +149,7 @@ function Registrar (sCuenta, sIdioma, sFuncion)
 			sImporte = "1";
 			$("#Importe").val(sImporte);
 			$("#Descripcion").val(sDescripcion);
-			sText = '{"data":"'+sDescripcion+'","token":"SummaTRON-R","pubkey":"04F7B6442F5CCB364A181D5EEC66A3C26281F96E7B9BA4EEDA8BFC018174B5BABBF9FBB88B236F0FB42EA6F630B0013DB5EB82A1E94146D8A223C0374B4F26AABD"}';
+			sText = '{"data":"'+sDescripcion+'","token":"SummaTRON-R","pubkey":"04FEEDE22A32B51A3EE97A71449C6A4363CFBB417DEC28317C2313FF7EB39C57C01405CCD072ACB0CAA0205D4A19D79651134E01D539CC7148BA130CBD3C01DBB4"}';
 			$("#Context").val(sText);
 			$("#qrcodeId").qrcode({
 				render:'canvas',
