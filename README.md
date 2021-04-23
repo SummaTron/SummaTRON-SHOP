@@ -1,5 +1,5 @@
 # SummaTRON-SHOP
-The goal is that users who have a digital product they want to sell do not need intermediaries like Amazon, Apple, Google, Facebook, Microsoft, etc., but directly they can insert them in SummaTRON-SHOP, put a price on TRX and you directly get the ingResos your sales to your TRON account.
+Is aMarketPlace based on BTFS and soon with NFS support. The goal is that users who have a digital product they want to sell do not need intermediaries like Amazon, Apple, Google, Facebook, Microsoft, etc., but directly they can insert them in SummaTRON-SHOP, using the hash value of BTFS, put a price on TRX and you directly get the ingResos your sales to your TRON account.
 <br><br>
 The elimination of intermediary will increase the benefits of the users that so far they shared most of the income with the intermediary companies.
 <br><br>
