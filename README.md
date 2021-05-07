@@ -1,5 +1,6 @@
 # SummaTRON-SHOP
-Is aMarketPlace based on BTFS and soon with NFS support. The goal is that users who have a digital product they want to sell do not need intermediaries like Amazon, Apple, Google, Facebook, Microsoft, etc., but directly they can insert them in SummaTRON-SHOP, using the hash value of BTFS, put a price on TRX and you directly get the ingResos your sales to your TRON account.
+SummaTRON-SHOP is a MarketPlace based on BTFS, NFT and conected with TronLink. The goal is that users who have a digital product they want to sell do not need intermediaries like Amazon, Apple, Google, Facebook, Microsoft, etc., but directly they can insert them in SummaTRON-SHOP, using a NFT token, put them a price on TRX and directly get the incomes for sales to your TRON account. <br>
+SummaTRON-SHOP uses a TRC721 token: SummaeBook (EBKNFT), there are several EBKNFT minted, and you can view them thrue the option "View" at www.summatron.com. In the future the wallet could access to wallet and show all the NFT: images, ebook, audio, video, etc. The owner of NFT tokens can view or sell thens, all in the Tron Ecosystem. 
 <br><br>
 The elimination of intermediary will increase the benefits of the users that so far they shared most of the income with the intermediary companies.
 <br><br>
@@ -18,4 +19,4 @@ The operation of SummaTRON-SHOP is based on 4 processes:
 4)  The delete of a product.
 
 <br>
-You can get all the information about SummaTRON-API proyect in our <a href="https://github.com/SummaTron/SummaTRON-SHOP/blob/master/SummaTRON_SHOP_WhitePaper_EN.pdf" target="blank">whitepaper</a>.
+You can get all the information about SummaTRON-SHOP proyect in our <a href="https://www.summatron.com/whitepaper_EN.html" target="blank">whitepaper</a>.
