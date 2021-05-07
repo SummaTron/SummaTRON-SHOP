@@ -1,7 +1,7 @@
 var aCuentas=[];
 var nBalance=0.0, nFrozen=0, nBandwidth=0, k=0;
-var oTokenA=[],oTokenN=[],oTokenB=[];
-var oTokens, oTransfers, oTimeStamp=[], sTransfers="[";
+var oTokenN=[],oTokenB=[];
+var oTokens, oTransfers, sTransfers="[";
 
 function Precio_Euro()
 {
@@ -68,80 +68,104 @@ function Idioma (sIdioma)
 	var sURL="";
 	$("#Idioma").val(sIdioma);
 	sURL=document.location.href;
-	if ((sURL=="https://www.summatron.com/")||(sURL=="https://summatron.com/"))
-	{sURL="https://www.summatron.com/index.html";}
-	if ($("#Idioma").val()=="ES")
+	if ((sURL=="http://www.summatron.com/")||(sURL=="http://summatron.com/"))
+	{sURL="http://www.summatron.com/index.html";}
+	nIni = sURL.indexOf("_")+1;
+	if (sURL.indexOf("_")<0)
+	{ sURL="http://www.summatron.com/index_";}
+	else
+	{sURL= sURL.substr(0,nIni);}
+	if ($("#Idioma").val()=="EN")
 		{ 
-			sURL= sURL.substr(0,sURL.length-5); 
-			document.location.href=sURL+"_ES.html";}
+			document.location.href=sURL+"EN.html";}
 	else
 		{ 
-			sURL= sURL.substr(0,sURL.length-8); 
-			document.location.href=sURL+".html";}
+			document.location.href=sURL+"ES.html";}
 }
 function Abrir_SummaTron()
 {
-	if ($("#Idioma").val()=="ES")
-	{document.location.href="/index_ES.html";}
+	if ($("#Idioma").val()=="EN")
+	{document.location.href="/index_EN.html";}
 	else
 	{document.location.href="/index.html";}
 }
 
 function Abrir_WhitePaper ()
 {
-	if ($("#Idioma").val()=="ES")
-	{document.location.href="/whitepaper_ES.html";}
+	if ($("#Idioma").val()=="EN")
+	{document.location.href="/whitepaper_EN.html";}
 	else
 	{document.location.href="/whitepaper.html";}
 }
 function Abrir_API ()
 {
-	if ($("#Idioma").val()=="ES")
-	{document.location.href="/api_ES.html";}
+	if ($("#Idioma").val()=="EN")
+	{document.location.href="/api_EN.html";}
 	else
 	{document.location.href="/api.html";}
 }
 function Abrir_AVA ()
 {
-	if ($("#Idioma").val()=="ES")
-	{document.location.href="/AVA_ES.html";}
+	if ($("#Idioma").val()=="EN")
+	{document.location.href="/AVA_EN.html";}
 	else
 	{document.location.href="/AVA.html";}
 }
 function Abrir_ComprarSTX ()
 {
-	if ($("#Idioma").val()=="ES")
-	{document.location.href="/comprarSTX_ES.html";}
+	if ($("#Idioma").val()=="EN")
+	{document.location.href="/comprarSTX_EN.html";}
 	else
 	{document.location.href="/comprarSTX.html";}
 }
 function Abrir_ComprarITX ()
 {
-	if ($("#Idioma").val()=="ES")
-	{document.location.href="/comprarITX_ES.html";}
+	if ($("#Idioma").val()=="EN")
+	{document.location.href="/comprarITX_EN.html";}
 	else
 	{document.location.href="/comprarITX.html";}
 }
 function Abrir_Shop ()
 {
-	if ($("#Idioma").val()=="ES")
-	{document.location.href="/shop/index_ES.html";}
+	if ($("#Idioma").val()=="EN")
+	{document.location.href="/shop/index_EN.html";}
 	else
-	{document.location.href="/shop/index.html";}
+	{document.location.href="/shop/index_ES.html";}
+}
+function Abrir_Visor()
+{
+	if ($("#Idioma").val()=="EN")
+	{document.location.href="/visor_EN.html";}
+	else
+	{document.location.href="/visor_ES.html";}
 }
 function Abrir_Otaku ()
 {
-	if ($("#Idioma").val()=="ES")
-	{document.location.href="/otaku_ES.html";}
+	if ($("#Idioma").val()=="EN")
+	{document.location.href="/otaku_EN.html";}
 	else
 	{document.location.href="/otaku.html";}
 }
 function Abrir_Contacto ()
 {
-	if ($("#Idioma").val()=="ES")
-	{document.location.href="/contacto_ES.html";}
+	if ($("#Idioma").val()=="EN")
+	{document.location.href="/contacto_EN.html";}
 	else
 	{document.location.href="/contacto.html";}
+}
+function Abrir_Alta ()
+{
+	if ($("#Idioma").val()=="EN")
+	{document.location.href="/shop/alta_EN.html";}
+	else
+	{document.location.href="/shop/alta.html";}
+}
+function Abrir_Modificacion ()
+{
+	if ($("#Idioma").val()=="EN")
+	{document.location.href="/shop/modificacion_EN.html";}
+	else
+	{document.location.href="/shop/modificacion.html";}
 }
 function sortJSON(data, key, orden) {
     return data.sort(function (a, b) {
@@ -168,7 +192,7 @@ function MostrarCuentas()
 }
 function Mostrar(sCuenta)
 {
-	$("#PanelIRS").css("display","none");
+	$("#PanelPago").css("display","none");
 	$("#PanelEspera").css("display","block");
 	Precio_Euro();
 	Precio_Dolar();
@@ -176,10 +200,9 @@ function Mostrar(sCuenta)
 	nTotal = 0.0;
 	nEuros = 0.0;
 	slDivisa="";
-	$.get( "/ava/jsp/CuentasJSON.jsp?Cuenta='"+sCuenta+"'", function(resp) {
+	$.get( "/shop/jspjs/CuentasJSON.jsp?Cuenta='"+sCuenta+"'", function(resp) {
 		$("#PanelEspera").css("display","none");
 		$("#PanelLista").css("display","block");
-		aCuentas=[];
 		var sZona="";
 		var obj = JSON.parse(resp);
 		nInversion = obj.Inversion;
@@ -223,7 +246,7 @@ function Mostrar(sCuenta)
 }
 function DetalleCuenta(sCuenta)
 {	
-	$("#PanelIRS").css("display","none");
+	$("#PanelPago").css("display","none");
 	$("#PanelLista").css("display","none");
 	$("#zonaDetalleCuenta").html("");
 	$("#zonaDetalleTokens").html("");
@@ -253,18 +276,11 @@ function DetalleCuenta(sCuenta)
 }
 function ResumenCuentas()
 {	
-	$("#PanelIRS").css("display","none");
+	$("#PanelPago").css("display","none");
 	$("#PanelLista").css("display","none");
 	$("#zonaDetalleCuenta").html("");
 	$("#zonaDetalleTokens").html("");
 	$("#PanelDetalle").css("display","block");
-	oTokenA=[];
-	oTokenB=[];
-	oTokenN=[];
-	sTransfers="[";
-	nBalance = 0;
-	nFrozen = 0;
-	nBandwidth = 0;
 	for (i in aCuentas)
 	{
 		LeerCuenta(aCuentas[i]);
@@ -291,11 +307,10 @@ function ResumenCuentas()
 	{
 		sToken = oTokens[i].name;
 		sBalance = oTokens[i].balance;
-		sOnClick = "MostrarCuentasToken('"+sToken+"')";
-		sZona = sZona + "<tr><td onclick="+sOnClick+">"+ sToken+" : "+nDecimal(sBalance,0)+"</td></tr>";
+		sZona = sZona + "<tr><td>"+ sToken+" : "+nDecimal(sBalance,0)+"</td></tr>";
 	}
 	$("#zonaDetalleTokens").append(sZona);
-
+	
 	sTransfers = sTransfers.substr(0,sTransfers.length-1);
 	sTransfers += "]";
 	osTransfers = JSON.parse(sTransfers);
@@ -320,25 +335,6 @@ function ResumenCuentas()
 	$("#zonaDetalleTransfer").append(sZona);
 	$("#lmenu2").click();
 }
-function MostrarTokens()
-{
-	$("#tokens").css("display","block");
-	$("#address").css("display","none");
-	
-}
-function MostrarCuentasToken(sToken)
-{
-	$("#tokens").css("display","none");
-	$("#address").css("display","block");
-	$("#zonaDetalleAddress").html("");
-	sZona="";
-	aAddress= oTokenA[sToken].split(";");
-	for (i=1;i<aAddress.length;i++)
-	{
-		sZona=sZona+"<tr><td>"+aAddress[i]+"</td><tr>";
-	}
-	$("#zonaDetalleAddress").append(sZona);
-}
 function LeerCuenta (sCuenta)
 {
 	$.ajaxSetup({async: false});
@@ -357,40 +353,31 @@ function LeerCuenta (sCuenta)
 				oTokenB.push(0);
 			}
 			oTokenB[oTokenN.indexOf(sToken)] += nTokenBalance;
-			// crea un array con todas las parejas address-token
-			if (oTokenA.indexOf(sToken)==-1)
-			{
-				oTokenA.push(sToken);
-			}
-			oTokenA[sToken]=oTokenA[sToken]+";"+sCuenta + ":  " + nDecimal(nTokenBalance,0) + " ("+sToken+")";
 		}
 	});
-		$.get( "https://wlcyapi.tronscan.org/api/transfer?sort=-timestamp&count=true&limit=15&start=0&address="+sCuenta, function(resp) {
-			var sZona="";
-			var obj = resp;
-			for (i in obj.data)
-			{
-				sFrom = obj.data[i].transferFromAddress;
-				sTo = obj.data[i].transferToAddress;
-				sToken = obj.data[i].tokenName;
-				sTimestamp = obj.data[i].timestamp;
-				if (sToken=="TRX")
-				{sAmount = obj.data[i].amount/1000000;}
-				else
-				{sAmount = obj.data[i].amount;}
-				var f = new Date(sTimestamp);
-				//sFecha= f.getDate()+"/"+f.getMonth()+"/"+f.FullYear()+" "+f.getHours()+":"+f.getMinutes();
-				sMonth=f.getMonth()+1
-				sFecha= pad(f.getDate(),2)+"/"+pad(sMonth,2)+"/"+f.getFullYear()+" "+pad(f.getHours(),2)+":"+pad(f.getMinutes(),2)+":"+pad(f.getSeconds(),2);
-				
-				if (oTimeStamp.indexOf(sTimestamp)==-1)
-				{
-					oTimeStamp.push(sTimestamp);
-					sTransfers +='{"From":"'+ sFrom + '","To":"' + sTo + '","Token":"' + sToken + '","Amount":"' + sAmount + '","Timestamp":' + sTimestamp + ',"Fecha":"' + sFecha + '"},';					
-				}
-			}
-		});
-	
+
+	$.get( "https://wlcyapi.tronscan.org/api/transfer?sort=-timestamp&count=true&limit=15&start=0&address="+sCuenta, function(resp) {
+		var sZona="";
+		var obj = resp;
+		for (i in obj.data)
+		{
+			sFrom = obj.data[i].transferFromAddress;
+			sTo = obj.data[i].transferToAddress;
+			sToken = obj.data[i].tokenName;
+			sTimestamp = obj.data[i].timestamp;
+			if (sToken=="TRX")
+			{sAmount = obj.data[i].amount/1000000;}
+			else
+			{sAmount = obj.data[i].amount;}
+			var f = new Date(sTimestamp);
+			//sFecha= f.getDate()+"/"+f.getMonth()+"/"+f.FullYear()+" "+f.getHours()+":"+f.getMinutes();
+			sMonth=f.getMonth()+1
+			sFecha= pad(f.getDate(),2)+"/"+pad(sMonth,2)+"/"+f.getFullYear()+" "+pad(f.getHours(),2)+":"+pad(f.getMinutes(),2)+":"+pad(f.getSeconds(),2);
+			
+			sTransfers += '{"From":"'+ sFrom + '","To":"' + sTo + '","Token":"' + sToken + '","Amount":"' + sAmount + '","Timestamp":' + sTimestamp + ',"Fecha":"' + sFecha + '"},';	
+		}
+	});
+
 }
 function DetalleTransfers(sCuenta)
 {	
@@ -428,27 +415,27 @@ function DetalleTransfers(sCuenta)
 }
 
 
-function AltaRegistro(sFichero, sIdioma)
+function AltaRegistro(obj)
 {
+	$("#PanelPago").css("display","none");
 	$("#PanelEspera").css("display","none");
-	$("#PanelIRS").load("/api/PanelIRS.html", function() {
-		$("#PanelIRS").css("display","block");
-		$("#PanelSign").css("display","block");;
-		$("#zonapdf").attr("src","https://www.summatron.com/pdfs/"+sFichero);
-		sCuenta = "TGJ6iAYibFVJGuvXN9JFxHTTaoLR4z4wz4";
-		Firmar(sCuenta,sIdioma,sFichero,"FirmaDocumento");
+	$("#PanelPago").load("/api/PanelFirma.html", function() {
+		$("#PanelFirma").css("display","block");;
+		$("#zonapdf").attr("src","https://www.summatron.com/pdfs/"+obj.Fichero);
+		Firmar(sCuenta,"ES",obj.Fichero,"FirmaDocumento");
+		
 	});
 }
 
-function FirmaDocumento(sFichero)
+function FirmaDocumento(obj)
 {
-	$("#zonapdf").attr("src","https://www.summatron.com/pdfs/"+sFichero);
+	$("#zonapdf").attr("src","https://www.summatron.com/pdfs/"+obj.Fichero);
 }
 function Enviar()
 {
 	sCuenta=$("#CuentaDonate").val();
 	sCuenta64=do58Decode($("#CuentaDonate").val());
-	$.get("/tron/jsp/enviar.jsp?Cuenta='"+sCuenta+"'&Cuenta64='"+sCuenta64+"'", function(resp) {
+	$.get("/bot/jsp/enviar.jsp?Cuenta='"+sCuenta+"'&Cuenta64='"+sCuenta64+"'", function(resp) {
 		obj = JSON.parse(resp);
 		alert(obj.Resultado);
 		if (obj.Resultado == "Envio realizado")
