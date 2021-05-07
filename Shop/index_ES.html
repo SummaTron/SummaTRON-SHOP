@@ -17,7 +17,7 @@
 	<title>SummaTron Shop. TRX e-commerce</title>	
 	<meta name="description" content="Agregador de cuentas de TRON"/>
 	<meta name="title" content="SummaTron. TRX Accounts Viewer"/>
-	<meta name="keywords" content="criptodivisa, crytocurrency, criptomoneda, tron, bitcoin, binance, tronwallet, wallet, "/>
+	<meta name="keywords" content="NFT, ebook, mp3, criptodivisa, crytocurrency, criptomoneda, tron, bitcoin, binance, tronwallet, wallet, "/>
 
  	<link rel="icon" type="image/png" href="/icon.png" />
     <link href="/tron/css/blog-post.css" rel="stylesheet">
@@ -99,16 +99,16 @@
             <h5 class="card-header">¿Qué es Shop?</h5>
             <div class="card-body">
 			<p style="text-align:justify">
-			<b>Shop</b> es una página de venta se productos dígitales cuyo pago se realiza exclusivamnente con TRX.<br>
+			<b>Shop</b> es una página de venta basada en BTFS se productos dígitales cuyo pago se realiza exclusivamente con TRX. La teconología <b>NFT</b> podrá ser soportada por este Marketplace<br>
 			Los compradores sólo tendrán que usar su wallet para Pagar o Enviar el importe del producto.
 			<br>
-			Una vez verificado el pago (unos segundos), Shop permitirá la descarga del producto.<br>
 			El vendedor recibirá automáticamente los TRX en su cuenta.
+			SummaTRON enviará el NFT a la cuenta del comprador.
 			Todo sin intermediarios, sin proceso de registro, cuentas de correo ni cookies "que mejoran la experiencia de usuario".<br>
 			<br>
 			Así de <b>simple</b>, así de <b>rápido</b>.
 			<br><br>
-			Puedes probarlo pulsando sobre el primer libro de la lista, su precio es 10 TRX (0,02$).
+			Puedes probarlo pulsando sobre el primer libro de la lista, su precio es 10 TRX (1.3$).
 			</p> </div>
           </div>
 		  <div class="card my-4">
@@ -159,21 +159,35 @@ $("#Busqueda").keyup(function(event) {
 });
 Mostrar();
 
-function makeCode (sCuenta,sImporte,sTitulo,sLink) {
+
+function PagarTronlink(sCuenta)
+{
+       var obj = setInterval(async ()=>{
+            if (window.tronWeb && window.tronWeb.defaultAddress.base58) {
+                clearInterval(obj)
+                var tronweb = window.tronWeb
+                var tx = await tronweb.transactionBuilder.sendTrx(window.tronWeb.defaultAddress.base58, 10, sCuenta)
+                var signedTx = await tronweb.trx.sign(tx)
+                var broastTx = await tronweb.trx.sendRawTransaction(signedTx)
+                console.log(broastTx)
+            }
+        }, 30)
+}
+function makeCode (sAbreviatura, sCuenta,sImporte,sTitulo,sLink) {
 	sTitulo = sTitulo.split("@").join(" ");
 	$("#PanelPago").css("display","block");
 	$("#PanelLista").css("display","none");
 	sR = Math.floor((Math.random() * 10000) + 1);
-    sDes = "Ref:"+sR;
+    sDes = "Ref:"+sAbreviatura;
     $("#Link").val(sLink);
 	$("#Descripcion").val(sDes);
 	$("#Importe").val(sImporte);
 	$("#DescripcionPago").html("<h3>"+sTitulo + ".</h3><h4>Precio: " + sImporte + " TRX. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+sDes + "</h4>");
-	$("#DatosEnviar").html("(Importe: "+sImporte+" TRX. Descripción: "+sDes+")");
+	$("#DatosEnviar").html("(Importe: "+sImporte+" TRX. Descripción/Nota: "+sDes+")");
 	$("#Cuenta").html("<b>"+sCuenta+"</b>");
 	sText = sCuenta;
 	qrcodeEnviar.makeCode(sText);
-	Verificar();
+	//Verificar();
 }
 function Verificar () 
 {
@@ -223,13 +237,14 @@ function Mostrar()
 		for (i=1;i<aLinea.length-1;i++)
 			{
 			aCelda= aLinea[i].split(";");
-			sCuenta = aCelda[0];
-			sPrecio = aCelda[1];
-			sTitulo = aCelda[2];
-			sDescripcion = aCelda[3];
-			sImagen = aCelda[4];
-			sProducto = aCelda[5];
-			sClick= "makeCode('"+sCuenta+"','"+sPrecio+"','"+sTitulo.split(" ").join("@")+"','"+sProducto+"');";
+			sAbreviatura = aCelda[0];
+			sCuenta = aCelda[1];
+			sPrecio = aCelda[2];
+			sTitulo = aCelda[3];
+			sDescripcion = aCelda[4];
+			sImagen = aCelda[5];
+			sProducto = aCelda[6];
+			sClick= "makeCode('"+sAbreviatura+"','"+sCuenta+"','"+sPrecio+"','"+sTitulo.split(" ").join("@")+"','"+sProducto+"');";
 			sZona=sZona+"<tr><td> <img src='"+sImagen+"' width='120px' height= '150px'  onclick="+sClick + " style='cursor:pointer' >" +
 			"<br><br><center><label style='font-size:12px'>Precio: "+sPrecio+" TRX</label></center></td>"+
 			"<td style='padding:10px'><div style='text-align:justify'>"+
@@ -237,7 +252,8 @@ function Mostrar()
 			"</div></td></tr>";
 		}	
 		$("#zona").append(sZona);
-		});
+		PagarTronlink("TKwtYQe4HfkjBe4yjiHdQamp8oRnNTgZXe");
+	});
 }
 </script>
 </html>
