@@ -1,0 +1,153 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-125578563-1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-125578563-1');
+	</script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="www.summatron.com">
+	<title>SummaTron Shop. TRX e-commerce</title>	
+	<meta name="description" content="Agregador de cuentas de TRON"/>
+	<meta name="title" content="SummaTron. TRX Accounts Viewer"/>
+	<meta name="keywords" content="NFT, ebook, mp3, criptodivisa, crytocurrency, criptomoneda, tron, bitcoin, binance, tronwallet, wallet, "/>
+
+ 	<link rel="icon" type="image/png" href="/icon.png" />
+    <link href="/tron/css/blog-post.css" rel="stylesheet">
+	<link href="/tron/css/font-awesome.min.css" rel="stylesheet">
+    <link href='/tron/css/bootstrap.min.css' rel='stylesheet' />
+	<link href='/tron/css/summadata.css' rel='stylesheet' />
+	<link href='/tron/css/jquery-ui.min.css' rel='stylesheet' />
+
+	<script src='/tron/js/scripts.js'></script>
+    <script src='/tron/js/jquery.min.js'></script>
+    <script src='/tron/js/bootstrap.min.js'></script>
+	<script src="/tron/js/jquery-ui.min.js"></script>	
+	<script src="/tron/js/funcionestron.js" ></script>
+	<script src="/api/js/qrcode.min.js" ></script>
+	<script src="/api/js/apisummatron.js" ></script> 
+
+  </head>
+<body>
+
+      <!-- Navigation -->
+	<div id="cabecera"></div>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-8">
+		<div id="PanelLista">
+		<br>
+		<label class="summalabel" for="address"><center><h2>Escriba la dirección</h2></center></label>	
+		<div class="input-group">
+			<input type="text" class="form-control" id="Address"  placeholder="Escriba aquí la dirección ..." value= "">
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="button" onClick="getAddress()" title="Copia la dirección desde Tronlink"><i class="fa fa-copy"></i></button>
+			</span>
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="button" onClick="Mostrar()"><i class="fa fa-search"></i></button>
+			</span>
+		</div><!-- /input-group -->
+		<label style="font-size:12px">Por Ejemplo: TWe8bCxrkxwdh3vzaUfTC676NEWVDcEi4x<label>
+		<br>
+		<table>
+		<tr>
+		<td>
+			<table>
+			<tbody id="zona">	
+			</tbody>
+			</table>
+		</td>
+		</tr>
+		</table>
+		</div>
+	
+	</div>
+	      <div class="col-md-4">
+
+          <!-- What is TRON -->
+          <div class="card my-4">
+            <h5 class="card-header">¿Cómo leer un EBKNFT?</h5>
+            <div class="card-body">
+			<p style="text-align:justify">
+			En primer lugar debe tener instalado un lector de epub en su equipo, si utiliza Chrome puede instalar <b>EPUBReader</b> como extensión y los eBooks se visualizarán en su navegar <br><br>
+			Rellene su dirección de la billetera donde tenga sus EBKNFT. Pulse en el botón de buscar<br>
+			Le aparecerá la lista de tokenId que posee en su billetera y seleccione un eBook, se descargará y podrá leerlo en epubReader
+			<br><br>
+			Así de <b>simple</b>, así de <b>rápido</b>.
+			
+			</p> </div>
+          </div>
+		  <div class="card my-4">
+            <h5 class="card-header">¿Qué Productos gestion Shop?</h5>
+            <div class="card-body"><p style="text-align:justify">
+			Todo producto digital, es decir descargable desde la web, puede ser publicado en Shop.<br>
+			Libros electrónicos (ya disponible), música, fotografias, comics, logos, dibujos (retratos), documentos, apuntes, trabajos fin de Master, etc.<br>
+			Si eres un creador y buscas una forma alternativa de ofrecer tus creaciones a los usuarios, <b>Shop</b> es tu plataforma.<br>
+			Hasta ahora solo había 2 alternativas: regalar el trabajo indexado por Google o dejándolo el valor de la venta en manos de intermediarios y de Visa.
+			</p> </div>
+          </div>
+    
+        </div>
+	</div>
+</div>
+<input type="hidden" id="Link" value= "">
+<input type="hidden" id="Descripcion" value= "">
+<input type="hidden" id="Importe" value= "">
+<input type="hidden" id="Time" value= "0">
+</body>
+<script type="text/javascript">
+$("#cabecera").load("cabecera_ES.html");
+
+function getAddress()
+{
+	if(window.tronWeb && window.tronWeb.defaultAddress.base58){
+		$("#Address").val(window.tronWeb.defaultAddress.base58);
+	}
+}
+function Mostrar()
+{	
+	sZona ="";
+	$("#zona").html("");
+	sAddress=$("#Address").val();
+	$.getJSON( "https://apilist.tronscan.org/api/account?address="+sAddress, function(resp) {
+		if (resp.trc721token_balances[0].tokenName == "SummaeBooK")
+		{
+			$.getJSON( "https://apilist.tronscan.org/api/transfer/trc20?sort=-timestamp&limit=50&start=0&address="+sAddress+"&direction=0&db_version=1&trc20Id=TV11JATgizc4gnLdkedrTM8sM3EHQaoY8v", function(resp2) {
+				jdata = resp2.data;
+				for ( var i in jdata)
+				{
+					sHash = jdata[i].hash;
+					$.getJSON( "https://apilist.tronscan.org/api/transaction-info?hash="+sHash, function(resp3) {
+						if ( resp3.trigger_info.parameter.tokenURI !== undefined)
+						{
+							tokenURI = resp3.trigger_info.parameter.tokenURI;
+							tokenId =  resp3.trigger_info.parameter.tokenId;
+							$.getJSON( tokenURI, function(resp4) {
+								sZona  = "<p><b>EBKNFT Id: " + tokenId + "</b><p><br>";
+								sZona += "<p><b>Título: </b>"+ resp4.properties.name.description + "</p><br>";
+								sZona += "<p style='text-align:justify'><b>Descripción: </b>"+ resp4.properties.description.description + "<p><br>";
+								sZona += "<p><b>Enlace al eBook: </b><a href='"+resp4.properties.image.description+"' target='_blank'>"+resp4.properties.image.description + "</a><br><br><hr>";
+								$("#zona").append(sZona);
+							
+							});
+						}
+					});
+				}
+			});
+		}
+	});
+}
+</script>
+</html>
