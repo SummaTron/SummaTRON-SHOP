@@ -14,9 +14,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta name="author" content="www.summatron.com">
-	<title>SummaTron Shop. TRX e-commerce</title>	
-	<meta name="description" content="Agregador de cuentas de TRON"/>
-	<meta name="title" content="SummaTron. TRX Accounts Viewer"/>
+	<title>SummaTron-Shop. EBKNFT MarketPlace</title>	
+	<meta name="description" content="SummaTron-Shop. EBKNFT MarketPlace"/>
+	<meta name="title" content="SummaTron-Shop. EBKNFT MarketPlace"/>
 	<meta name="keywords" content="NFT, ebook, mp3, criptodivisa, crytocurrency, criptomoneda, tron, bitcoin, binance, tronwallet, wallet, "/>
 
  	<link rel="icon" type="image/png" href="/icon.png" />
@@ -78,8 +78,9 @@
 					<div id="Pago">
 						<label id="DescripcionPago"></label>
 						<table><tr><td slign="center" style="padding-right:20px">
+						<center><button onClick="PagarTronlink()">Pagar con TronLink</button></center><br>
 						<label>Para ENVIAR con cualquier Wallet</label><br>
-						<label id="DatosEnviar" style="font-size:12px"></label>
+						<label id="DatosEnviar" style="font-size:12px"></label><br>
 						<div id="qrcodeEnviar" style="border-style:solid;border-width:5px;border-color:#242489;width:200px; height:200px; margin-top:20px;margin-left:20px;padding:5px"></div>
 						<label id="Cuenta" style="font-size:14px;"></label>
 						</td></tr></table>
@@ -123,7 +124,7 @@
          <div class="card my-4">
             <h5 class="card-header">Alta de Productos</h5>
             <div class="card-body"><p style="text-align:justify">
-			En <a href="http://www.summatron.com/shop/alta.html" target="_blank">alta de producto</a> podrás dar de alta nuevos productos digitales. No será necesario registro, la cuenta TRX es la clave de entrada.<br>
+			En <a href="" target="_blank">alta de producto</a> podrás dar de alta nuevos productos digitales. No será necesario registro, la cuenta TRX es la clave de entrada.<br>
 			La imagen y el producto pueden enlazarse en una página externa (o subirlo a Shop), en Summatron/Shop solo estará la descripción, el precio y la cuenta TRX de cobro.<br>
 			De este modo puedes comprobar que las descargas y los pagos coinciden,<br>
 			¡¡Esto si que es descentralización y libertad en la Internet 4.0 gracias a TRON!!.
@@ -141,7 +142,8 @@
 	</div>
 </div>
 <input type="hidden" id="Link" value= "">
-<input type="hidden" id="Descripcion" value= "">
+<input type="hidden" id="idProducto" value= "">
+<input type="hidden" id="Data" value= "">
 <input type="hidden" id="Importe" value= "">
 <input type="hidden" id="Time" value= "0">
 </body>
@@ -160,69 +162,52 @@ $("#Busqueda").keyup(function(event) {
 Mostrar();
 
 
-function PagarTronlink(sCuenta)
-{
-       var obj = setInterval(async ()=>{
-            if (window.tronWeb && window.tronWeb.defaultAddress.base58) {
-                clearInterval(obj)
-                var tronweb = window.tronWeb
-                var tx = await tronweb.transactionBuilder.sendTrx(window.tronWeb.defaultAddress.base58, 10, sCuenta)
-                var signedTx = await tronweb.trx.sign(tx)
-                var broastTx = await tronweb.trx.sendRawTransaction(signedTx)
-                console.log(broastTx)
-            }
-        }, 30)
+function PagarTronlink()
+{		
+	   sCuenta = "TKwtYQe4HfkjBe4yjiHdQamp8oRnNTgZXe";
+	   sidProducto = $("#idProducto").val();
+	   sData = $("#Data").val();
+	   try
+	   {
+		   var obj = setInterval(async ()=>{
+				if (window.tronWeb && window.tronWeb.defaultAddress.base58) {
+					clearInterval(obj);
+					var tronweb = window.tronWeb;
+					var tx = await tronweb.transactionBuilder.sendTrx(sCuenta,1,window.tronWeb.defaultAddress.base58);
+					var data = tronweb.toHex(sData);
+					data = data.replace(/^0x/,'');
+					tx.raw_data.data = data;
+					var signedTx = await tronweb.trx.sign(tx);
+					var broastTx = await tronweb.trx.sendRawTransaction(signedTx);
+					alert ("Pago realizado. Enviaremos su EBKNFT a: "+window.tronWeb.defaultAddress.base58)
+				}
+				else
+				{
+					clearInterval(obj);
+					alert("Conexión con TronLink no disponible");
+				}
+			}, 10);
+		}
+		catch (e)
+		{
+			alert("Error en el accesso a TronLink");
+		}
 }
-function makeCode (sAbreviatura, sCuenta,sImporte,sTitulo,sLink) {
+function makeCode (sIdProducto, sAbreviatura, sCuenta,sImporte,sTitulo,sLink) {
 	sTitulo = sTitulo.split("@").join(" ");
 	$("#PanelPago").css("display","block");
 	$("#PanelLista").css("display","none");
-	sR = Math.floor((Math.random() * 10000) + 1);
-    sDes = "Ref:"+sAbreviatura;
+
+    sDes = "Ref: "+sAbreviatura;
+	$("#idProducto").val(sIdProducto);
     $("#Link").val(sLink);
-	$("#Descripcion").val(sDes);
+	$("#Data").val(sDes);
 	$("#Importe").val(sImporte);
 	$("#DescripcionPago").html("<h3>"+sTitulo + ".</h3><h4>Precio: " + sImporte + " TRX. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+sDes + "</h4>");
-	$("#DatosEnviar").html("(Importe: "+sImporte+" TRX. Descripción/Nota: "+sDes+")");
+	$("#DatosEnviar").html("(Importe: 0.000001 TRX. Descripción/Nota: "+sDes+")");
 	$("#Cuenta").html("<b>"+sCuenta+"</b>");
 	sText = sCuenta;
 	qrcodeEnviar.makeCode(sText);
-	//Verificar();
-}
-function Verificar () 
-{
-	sDescripcion=$("#Descripcion").val();
-	sImporte = $("#Importe").val();
-	sLink=$("#Link").val();
-	sLinkPDF = sLink ;
-	$.get( "/shop/jsp/ConectarTronScan.jsp?Cuenta='"+sCuenta+"'&Descripcion='"+sDescripcion+"'&Importe="+sImporte+"'", function(resp) {
-		var obj = JSON.parse(resp);
-		
-		if (obj.From=="Error")		
-		{
-			$("#Pago").css("display","none");
-			$("#resultado").html("<h3>Tiempo de espera superado</h3>");
-			$("#descarga").html("");
-		}
-		else
-		{
-			$("#Pago").css("display","none");
-			nAmount = parseFloat(obj.Amount);
-			nImporte = parseFloat(sImporte);
-			if ((nImporte==nAmount) && (obj.Token=="TRX"))
-			{	
-				$("#DescripcionPago").html("");
-				$("#Cabecera").html("Se ha verificado el envío");
-				$("#resultado").html("<h4>Muchas gracias. Hemos recibido un pago de "+ obj.Amount+ " " + obj.Token + " desde "+ obj.From +"</h4>");
-				$("#descarga").html("<h4> Pulse para descargar su producto  <a href='"+sLinkPDF+"' target='_blank'><img src='/shop/img/pdf.jpg' width='30px' height='40px')></a></h4>");			
-			}
-			else
-			{
-				$("#resultado").html("<h4>El importe no coincide, pero muchas gracias.<br> Hemos recibido un pago desde "+ obj.From +"</h4>");
-				$("#descarga").html("<h4> Pulse para descargar su producto <a href='"+sLinkPDF+"' target='_blank'><img src='/shop/img/pdf.jpg' width='30px' height='40px')></a></h4>");			
-			}
-		}
-	});
 }
 
 function Mostrar()
@@ -244,7 +229,8 @@ function Mostrar()
 			sDescripcion = aCelda[4];
 			sImagen = aCelda[5];
 			sProducto = aCelda[6];
-			sClick= "makeCode('"+sAbreviatura+"','"+sCuenta+"','"+sPrecio+"','"+sTitulo.split(" ").join("@")+"','"+sProducto+"');";
+			sIdProducto = aCelda[7];
+			sClick= "makeCode('"+sIdProducto+"','"+sAbreviatura+"','"+sCuenta+"','"+sPrecio+"','"+sTitulo.split(" ").join("@")+"','"+sProducto+"');";
 			sZona=sZona+"<tr><td> <img src='"+sImagen+"' width='120px' height= '150px'  onclick="+sClick + " style='cursor:pointer' >" +
 			"<br><br><center><label style='font-size:12px'>Precio: "+sPrecio+" TRX</label></center></td>"+
 			"<td style='padding:10px'><div style='text-align:justify'>"+
@@ -252,7 +238,6 @@ function Mostrar()
 			"</div></td></tr>";
 		}	
 		$("#zona").append(sZona);
-		PagarTronlink("TKwtYQe4HfkjBe4yjiHdQamp8oRnNTgZXe");
 	});
 }
 </script>
