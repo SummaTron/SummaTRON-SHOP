@@ -3,7 +3,7 @@
 <%@ page import = "java.sql.DriverManager"%> 
 <%@ page import = "java.sql.ResultSet"%> 
 <%@ page import = "java.sql.Statement"%> 
-<%@ page import = "java.io.*,java.util.*, javax.servlet.*" %>
+<%@ page import = "java.io.*,java.util.*" %>
 <%@include file="variables.jsp" %>  
 <%
 String sBusqueda = request.getParameter("Busqueda").replaceAll("'","");
@@ -24,12 +24,12 @@ String sLista="@";
 	   {
 		  // La consulta
 		  Statement st = conexion.createStatement();		  
-		  ResultSet rs = st.executeQuery("select Cuenta, Precio, Titulo_ES, Descripcion_ES, URLImagen, URLProducto from productos "+sFiltro);
+		  ResultSet rs = st.executeQuery("select Abreviatura, Cuenta, Precio, Titulo_ES, Descripcion_ES, URLImagen, URLProducto, idproductos from productos "+sFiltro);
 
 		  try {
 			  while ( rs.next() )
 			   {	
-				  sLista=sLista+"#"+rs.getString("Cuenta")+";"+rs.getString("Precio")+";"+rs.getString("Titulo_ES").trim()+";"+rs.getString("Descripcion_ES").trim()+";"+rs.getString("URLImagen")+";"+rs.getString("URLProducto");
+				  sLista=sLista+"#"+rs.getString("Abreviatura")+";"+rs.getString("Cuenta")+";"+rs.getString("Precio")+";"+rs.getString("Titulo_ES").trim()+";"+rs.getString("Descripcion_ES").trim()+";"+rs.getString("URLImagen")+";"+rs.getString("URLProducto")+";"+rs.getString("idproductos");
 				}
 				sLista=sLista+"#";
 			}
