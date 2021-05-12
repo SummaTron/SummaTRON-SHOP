@@ -16,7 +16,7 @@
     <meta name="author" content="www.summatron.com">
 	<title>SummaTron Shop. TRX e-commerce</title>	
 	<meta name="description" content="Agregador de cuentas de TRON"/>
-	<meta name="title" content="SummaTron. TRX Accounts Viewer"/>
+	<meta name="title" content="SummaTron-Shop. EBKNFT MarketPlace"/>
 	<meta name="keywords" content="NFT, ebook, mp3, criptodivisa, crytocurrency, criptomoneda, tron, bitcoin, binance, tronwallet, wallet, "/>
 
  	<link rel="icon" type="image/png" href="/icon.png" />
@@ -32,10 +32,9 @@
 	<script src="/tron/js/jquery-ui.min.js"></script>	
 	<script src="/tron/js/funcionestron.js" ></script>
 	<script src="/api/js/qrcode.min.js" ></script>
-	<script src="/api/js/apisummatron.js" ></script> 
 
   </head>
-<body>
+<body id="body">
 
       <!-- Navigation -->
 	<div id="cabecera"></div>
@@ -53,13 +52,13 @@
 		<div class="input-group">
 			<input type="text" class="form-control" id="Address"  placeholder="Escriba aquí la dirección ..." value= "">
 			<span class="input-group-btn">
-				<button class="btn btn-default" type="button" onClick="getAddress()" title="Copia la dirección desde Tronlink"><i class="fa fa-copy"></i></button>
+				<button class="btn btn-default" type="button" onClick="getAddress()" title="Copia la dirección desde TronLink"><i class="fa fa-copy"></i></button>
 			</span>
 			<span class="input-group-btn">
 				<button class="btn btn-default" type="button" onClick="Mostrar()"><i class="fa fa-search"></i></button>
 			</span>
 		</div><!-- /input-group -->
-		<label style="font-size:12px">Por Ejemplo: TWe8bCxrkxwdh3vzaUfTC676NEWVDcEi4x<label>
+		<label style="font-size:12px">Por Ejemplo: TDyTcMgsKGZ1ytLw3GA6birYuF2uc5rVWK<label>
 		<br>
 		<table>
 		<tr>
@@ -115,39 +114,83 @@ function getAddress()
 	if(window.tronWeb && window.tronWeb.defaultAddress.base58){
 		$("#Address").val(window.tronWeb.defaultAddress.base58);
 	}
+	else
+	{
+		alert("No está disponible el acceso a TronLink");
+	}
 }
 function Mostrar()
 {	
+	document.body.style.cursor = "wait";
 	sZona ="";
 	$("#zona").html("");
 	sAddress=$("#Address").val();
-	$.getJSON( "https://apilist.tronscan.org/api/account?address="+sAddress, function(resp) {
-		if (resp.trc721token_balances[0].tokenName == "SummaeBooK")
-		{
-			$.getJSON( "https://apilist.tronscan.org/api/transfer/trc20?sort=-timestamp&limit=50&start=0&address="+sAddress+"&direction=0&db_version=1&trc20Id=TV11JATgizc4gnLdkedrTM8sM3EHQaoY8v", function(resp2) {
-				jdata = resp2.data;
-				for ( var i in jdata)
+	if (sAddress=="")
+	{
+		alert("Debe rellenar una dirección");
+		document.body.style.cursor = "default";
+	}
+	else
+	{
+		jQuery.ajaxSetup({async:false});
+		try
+		{	
+			$.getJSON( "https://apilist.tronscan.org/api/account?address="+sAddress, function(resp) {		
+				if (resp.trc721token_balances[0].tokenName == "SummaeBooK")
 				{
-					sHash = jdata[i].hash;
-					$.getJSON( "https://apilist.tronscan.org/api/transaction-info?hash="+sHash, function(resp3) {
-						if ( resp3.trigger_info.parameter.tokenURI !== undefined)
+					$.getJSON( "https://apilist.tronscan.org/api/transfer/trc20?sort=-timestamp&limit=50&start=0&address="+sAddress+"&direction=0&db_version=1&trc20Id=TV11JATgizc4gnLdkedrTM8sM3EHQaoY8v", function(resp2) {
+						jdata = resp2.data;
+						for ( var i in jdata)
 						{
-							tokenURI = resp3.trigger_info.parameter.tokenURI;
-							tokenId =  resp3.trigger_info.parameter.tokenId;
-							$.getJSON( tokenURI, function(resp4) {
-								sZona  = "<p><b>EBKNFT Id: " + tokenId + "</b><p><br>";
-								sZona += "<p><b>Título: </b>"+ resp4.properties.name.description + "</p><br>";
-								sZona += "<p style='text-align:justify'><b>Descripción: </b>"+ resp4.properties.description.description + "<p><br>";
-								sZona += "<p><b>Enlace al eBook: </b><a href='"+resp4.properties.image.description+"' target='_blank'>"+resp4.properties.image.description + "</a><br><br><hr>";
-								$("#zona").append(sZona);
-							
-							});
+							if (tokenId = jdata[i].direction == 2)
+							{
+								tokenId = jdata[i].amount;
+								tokenURI = TokenURI(tokenId, sAddress);
+							}
 						}
+						document.body.style.cursor = "default";
 					});
 				}
 			});
 		}
-	});
+		catch (error)
+		{
+			$("#zona").append("<b>No Existen EBKNTF en esta dirección</b>");
+			document.body.style.cursor = "default";
+		}	
+	}
+}
+function TokenURI(sTokenId, sAddress) {
+
+	try
+	{
+		const trc721ContractAddress = "TV11JATgizc4gnLdkedrTM8sM3EHQaoY8v";//contract address
+	    var obj = setInterval(async ()=>{
+			if (window.tronWeb && window.tronWeb.defaultAddress.base58) {
+				clearInterval(obj);			
+				let contract = await  window.tronWeb.contract().at(trc721ContractAddress);	
+				let tokenOwner = await contract.ownerOf(sTokenId).call();
+				if (window.tronWeb.address.fromHex(tokenOwner) == sAddress)
+				{
+					let tokenURI = await contract.tokenURI(sTokenId).call();
+					await $.getJSON( tokenURI, function(resp3) { 
+						sZona  = "<p><b>EBKNFT Id: " + sTokenId + "</b><p><br>";
+						sZona += "<p><b>Título: </b>"+ resp3.properties.name.description + "</p><br>";
+						sZona += "<p style='text-align:justify'><b>Descripción: </b>"+ resp3.properties.description.description + "<p><br>";
+						sZona += "<p><b>Enlace al eBook: </b><a href='"+resp3.properties.image.description+"' target='_blank'>"+resp3.properties.image.description + "</a><br><br><hr>";
+						$("#zona").append(sZona);
+					});
+				}
+			}
+			else
+			{
+				clearInterval(obj);
+				alert("No está disponible el acceso a TronLink");
+			}
+		},10);
+    } catch (error) {
+        console.error("Error al consultar el Token", error)
+    }
 }
 </script>
 </html>
